@@ -8,11 +8,12 @@ namespace ShopExample.Model.Model
     public class ProductTag
     {
         [Key]
+        [Column(Order = 1)]
         public long ProductID { get; set; }
 
         [Key]
         [MaxLength(50)]
-        [Column(TypeName = "varchar")]
+        [Column(TypeName = "varchar", Order = 2)]
         public string TagID { get; set; }
 
         [ForeignKey("ProductID")]

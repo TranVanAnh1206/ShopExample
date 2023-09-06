@@ -9,10 +9,12 @@ namespace ShopExample.Model.Model
     {
         [Key]
         [Required]
+        [Column(Order = 1)]
         public long OrderID { get; set; }
 
         [Key]
         [Required]
+        [Column(Order = 2)]
         public long ProductID { get; set; }
 
         [Required]

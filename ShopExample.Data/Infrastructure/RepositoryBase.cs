@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShopExample.Data.Infrastructure
 {
-    public abstract class RepositoryBase<T> where T : class
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         #region Properties
         private ShopExampleDBContext dataContext;
@@ -60,17 +60,19 @@ namespace ShopExample.Data.Infrastructure
                 dbSet.Remove(obj);
         }
 
+        // Search MEthod
         public virtual T GetSingleById(int id)
         {
             return dbSet.Find(id);
         }
 
+        // Get List
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes)
         {
             return dbSet.Where(where).ToList();
         }
 
-
+        // Get Count 
         public virtual int Count(Expression<Func<T, bool>> where)
         {
             return dbSet.Count(where);
@@ -138,7 +140,8 @@ namespace ShopExample.Data.Infrastructure
             total = _resetSet.Count();
             return _resetSet.AsQueryable();
         }
-
+        
+        // Kiểm tra có tồn tại một bản ghi nào hay không    
         public bool CheckContains(Expression<Func<T, bool>> predicate)
         {
             return dataContext.Set<T>().Count<T>(predicate) > 0;
