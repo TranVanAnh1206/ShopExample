@@ -56,6 +56,8 @@
     <Compile Include="Model\Footer.cs" />
     <Compile Include="Model\Menu.cs" />
     <Compile Include="Model\MenuGroup.cs" />
+    <Compile Include="Model\Order.cs" />
+    <Compile Include="Model\OrderDetail.cs" />
     <Compile Include="Model\Page.cs" />
     <Compile Include="Model\Post.cs" />
     <Compile Include="Model\PostCategory.cs" />
