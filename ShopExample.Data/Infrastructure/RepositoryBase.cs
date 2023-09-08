@@ -69,7 +69,7 @@ namespace ShopExample.Data.Infrastructure
         }
 
         // Search MEthod
-        public virtual T GetSingleById(int id)
+        public virtual T GetSingleById(long id)
         {
             return dbSet.Find(id);
         }

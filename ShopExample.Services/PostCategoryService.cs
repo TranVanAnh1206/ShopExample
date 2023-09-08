@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace ShopExample.Services
 {
-    interface IPostCategoryService
+    public interface IPostCategoryService
     {
-        void Add(PostCategory pc);
-        void Delete(long id);
+        PostCategory Add(PostCategory pc);
+        PostCategory Delete(long id);
         void Update(PostCategory pc);
         IEnumerable<PostCategory> GetAll();
         IEnumerable<PostCategory> GetAllByParentId(long parentId);
         PostCategory GetById(long id);
     }
 
-    class PostCategoryService : IPostCategoryService
+    public class PostCategoryService : IPostCategoryService
     {
         IPostCategoryRepository _postCategoryRepository;
         IUnitOfWork _unitOfWork;
@@ -30,14 +30,14 @@ namespace ShopExample.Services
             this._unitOfWork = unitOfWork;
         }
 
-        public void Add(PostCategory pc)
+        public PostCategory Add(PostCategory pc)
         {
-            _postCategoryRepository.Add(pc);
+            return _postCategoryRepository.Add(pc);
         }
 
-        public void Delete(long id)
+        public PostCategory Delete(long id)
         {
-            _postCategoryRepository.Delete(id);
+            return _postCategoryRepository.Delete(id);
         }
 
         public IEnumerable<PostCategory> GetAll()
