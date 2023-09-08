@@ -10,7 +10,7 @@ namespace ShopExample.Data.Repositories
     using ShopExample.Data.Infrastructure;
     using ShopExample.Model.Model;
 
-    interface ISupportOnlineRepository
+    interface ISupportOnlineRepository : IRepository<SupportOnline>
     {
 
     }

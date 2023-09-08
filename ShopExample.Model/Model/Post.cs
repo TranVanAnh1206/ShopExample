@@ -44,6 +44,6 @@ namespace ShopExample.Model.Model
 
         public int ViewCount { get; set; }
 
-
+        public virtual IEnumerable<PostTag> PostTags { get; set; }
     }
 }

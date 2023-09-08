@@ -48,11 +48,19 @@ namespace ShopExample.Data.Infrastructure
         {
             return dbSet.Remove(entity);
         }
-        public virtual T Delete(int id)
+
+        public virtual T Delete(long id)
         {
             var entity = dbSet.Find(id);
             return dbSet.Remove(entity);
         }
+
+        public virtual T Delete(string id)
+        {
+            var entity = dbSet.Find(id);
+            return dbSet.Remove(entity);
+        }
+
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();
