@@ -7,7 +7,8 @@ PM > update-database
 
 ### Sau khi đã có được database rồi mà muốn thêm vào một bảng thì
 
--> Tạo một model mới -> Tạo DBSet trong file <NameDatabse>DbContext.cs
+-> Tạo một model mới 
+-> Tạo DBSet trong file <NameDatabse>DbContext.cs
 PM > add-migration AddNewTable (-> tạo tên gì thì tùy)
 PM > update-database
 -> Sau đó tiếp tục tạo đến Repository và Service của bảng vừa tạo
