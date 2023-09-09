@@ -23,11 +23,11 @@ Chạy thử
 ### Tích hợp ASP NET Identity cho phần chứng thực người dùng
 ## Các bước thực hiện cài đặt DI Autofic
 
-Cài 3 thư viện : Microsoft.ASPNet.Identity.EntityFramword, Microsoft.ASPNet.Identity.Core, Microsoft.ASPNet.Identity.OWIN
-Tạo mới class User kế thừa từ IdentityUser
-Tạo mới class Role kế thừa từ IdentityRole
-Kế thừa lớp DbContext từ IdentityDbContext<User>
-Cấu hình Authentication từ file Startup.cs
-Thực hiện migration vào database
-Tạo class quản lý Authen
+Cài 3 thư viện : Microsoft.ASPNet.Identity.EntityFramword, Microsoft.ASPNet.Identity.Core, Microsoft.ASPNet.Identity.OWIN \n
+Tạo mới class User kế thừa từ IdentityUser \n
+Tạo mới class Role kế thừa từ IdentityRole\n
+Kế thừa lớp DbContext từ IdentityDbContext<User>\n
+Cấu hình Authentication từ file Startup.cs\n
+Thực hiện migration vào database\n
+Tạo class quản lý Authen\n
 
