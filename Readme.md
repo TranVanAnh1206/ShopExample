@@ -7,8 +7,7 @@ PM > update-database
 
 ### Sau khi đã có được database rồi mà muốn thêm vào một bảng thì
 
--> Tạo một model mới 
--> Tạo DBSet trong file <NameDatabse>DbContext.cs
+-> Tạo một model mới -> Tạo DBSet trong file <NameDatabse>DbContext.cs
 PM > add-migration AddNewTable (-> tạo tên gì thì tùy)
 PM > update-database
 -> Sau đó tiếp tục tạo đến Repository và Service của bảng vừa tạo
@@ -20,3 +19,15 @@ Tạo file Startup.cs: Chuột phải App_Start > Add > New item > Chọn OWIN S
 Cài gói Microsoft.OWin.Host.SystemWeb để chạy file Startup.cs
 Register Startup cho cả controller mvc và controller api
 Chạy thử
+
+### Tích hợp ASP NET Identity cho phần chứng thực người dùng
+## Các bước thực hiện cài đặt DI Autofic
+
+Cài 3 thư viện : Microsoft.ASPNet.Identity.EntityFramword, Microsoft.ASPNet.Identity.Core, Microsoft.ASPNet.Identity.OWIN
+Tạo mới class User kế thừa từ IdentityUser
+Tạo mới class Role kế thừa từ IdentityRole
+Kế thừa lớp DbContext từ IdentityDbContext<User>
+Cấu hình Authentication từ file Startup.cs
+Thực hiện migration vào database
+Tạo class quản lý Authen
+
