@@ -23,14 +23,14 @@ namespace ShopExample.Model.Model
         [MaxLength(500)]
         public string Alias { get; set; }
 
-        public int ParentID { get; set; }
+        public int? ParentID { get; set; }
 
         [Column(TypeName = "varchar")]
         [MaxLength(256)]
         public string Image { get; set; }
 
-        public int DisplayOrder { get; set; }
-
+        public int? DisplayOrder { get; set; }
+        
         public bool HomeFlag { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace ShopExample.Services
         IEnumerable<PostCategory> GetAll();
         IEnumerable<PostCategory> GetAllByParentId(long parentId);
         PostCategory GetById(long id);
+        void SaveChanged();
     }
 
     public class PostCategoryService : IPostCategoryService
@@ -53,6 +54,11 @@ namespace ShopExample.Services
         public PostCategory GetById(long id)
         {
             return _postCategoryRepository.GetSingleById(id);
+        }
+
+        public void SaveChanged()
+        {
+            _unitOfWork.Commit();
         }
 
         public void Update(PostCategory pc)
