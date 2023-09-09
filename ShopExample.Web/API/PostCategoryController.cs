@@ -1,12 +1,16 @@
-﻿using ShopExample.Model.Model;
+﻿using AutoMapper;
+using ShopExample.Model.Model;
 using ShopExample.Services;
 using ShopExample.Web.Infrastructure.Core;
+using ShopExample.Web.Mapping;
+using ShopExample.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ShopExample.Web.Infrastructure.Extensions;
 
 namespace ShopExample.Web.API
 {
@@ -28,7 +32,11 @@ namespace ShopExample.Web.API
             {
                 var listCategory = _postCategoryService.GetAll();
 
-                HttpResponseMessage response = requestMessage.CreateResponse(HttpStatusCode.OK, listCategory);
+                var mapper = AutoMapperConfiguration.Configure();
+
+                var listPostCategoryVm = mapper.Map<List<PostCategoryViewModel>>(listCategory);
+
+                HttpResponseMessage response = requestMessage.CreateResponse(HttpStatusCode.OK, listPostCategoryVm);
 
                 return response;
             });
@@ -36,18 +44,21 @@ namespace ShopExample.Web.API
 
         // GET api/<controller>
         [Route("add")]
-        public HttpResponseMessage Post(HttpRequestMessage requestMessage, PostCategory postCategory)
+        public HttpResponseMessage Post(HttpRequestMessage requestMessage, PostCategoryViewModel postCategoryVM)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
                 HttpResponseMessage response = null;
 
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
+                    PostCategory postCategory = new PostCategory();
+                    postCategory.UpdatePostCategory(postCategoryVM);
+
                     var category = _postCategoryService.Add(postCategory);
                     _postCategoryService.SaveChanged();
 
@@ -60,19 +71,21 @@ namespace ShopExample.Web.API
 
         // PUT api/<controller>/5
         [Route("update")]
-        public HttpResponseMessage Put(HttpRequestMessage requestMessage, PostCategory postCategory)
+        public HttpResponseMessage Put(HttpRequestMessage requestMessage, PostCategoryViewModel postCategoryVM)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
                 HttpResponseMessage response = null;
 
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
-                    _postCategoryService.Update(postCategory);
+                    var postCategoryDb = _postCategoryService.GetById(postCategoryVM.ID);
+                    postCategoryDb.UpdatePostCategory(postCategoryVM);
+                    _postCategoryService.Update(postCategoryDb);
                     _postCategoryService.SaveChanged();
 
                     response = requestMessage.CreateResponse(HttpStatusCode.OK);
@@ -90,7 +103,7 @@ namespace ShopExample.Web.API
             {
                 HttpResponseMessage response = null;
 
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
                     requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
                 }
