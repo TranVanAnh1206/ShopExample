@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "angular@12.2.17",
+      "destination": "Scripts/Plugins/"
+    },
+    {
+      "library": "angular.js@1.8.3",
+      "destination": "Scripts/Plugins/"
+    }
+  ]
+}

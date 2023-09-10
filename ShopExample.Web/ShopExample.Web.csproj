@@ -206,6 +206,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -235,6 +236,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include=".bin\git.cmd" />
+    <None Include=".bin\node.cmd" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -248,6 +252,14 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Plugins\angular-csp.css" />
+    <Content Include="Scripts\Plugins\angular-csp.min.css" />
+    <Content Include="Scripts\Plugins\angular.js" />
+    <Content Include="Scripts\Plugins\angular.min.js" />
+    <Content Include="Scripts\Plugins\core-testing.umd.js" />
+    <Content Include="Scripts\Plugins\core-testing.umd.min.js" />
+    <Content Include="Scripts\Plugins\core.umd.js" />
+    <Content Include="Scripts\Plugins\core.umd.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -260,12 +272,15 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\Plugins\core-testing.umd.js.map" />
+    <Content Include="Scripts\Plugins\core.umd.js.map" />
+    <Content Include="Scripts\Plugins\angular.min.js.map" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Assets\Admin\" />
     <Folder Include="Content\Assets\Client\" />
-    <Folder Include="Scripts\Plugins\" />
     <Folder Include="Scripts\SinglePageApplication\" />
   </ItemGroup>
   <ItemGroup>
