@@ -1,4 +1,13 @@
-### sau khi đã hoàn thiện xong được các Model class cho các bảng
+# Những lưu ý trong lúc làm project
+- Tạo một class library là Model, Data, Service, Unittest, Common
+- trong tầng Model, Tạo một folder lưu trữ các class đại diện cho các bảng trong database
+- Tạo folder Abstract, mọt interface để lưu trữ các attr dùng chung, sau đó tạo class kế thừa từ interface đó
+- Ở tầng Data, Tạo một folder Repository để chứa các Repositori của các lớp đại diện
+- trong từng Repository, tạo một interface kế thừa từ IRepository chứa các phương thức phổ biến cho các hoạt động với Entity code first, sau đó là repositoy kế thừa từ RepositoriBase và Interface tương ứng.
+- RepositoryBase kế thừa từ IRepository, định nghĩa các phương thức như Add, GetAll, Delete, Update đã được khai báo trong IRepository
+- RepositoryBase và IRepository được định ngĩa trong folder Infrastructure
+
+### sau khi đã hoàn thiện xong được các Model class đại diện cho các bảng cho các bảng
 
 vào Package Manager Console
 1. PM > enable-migrations (chọn PM > enable-migrations -Force nếu đã tồn tại để ghi đè)
