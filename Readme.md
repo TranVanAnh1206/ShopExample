@@ -2,20 +2,19 @@
 - Tạo một class library là Model, Data, Service, Unittest, Common
 - trong tầng Model, Tạo một folder lưu trữ các class đại diện cho các bảng trong database
 - Tạo folder Abstract, mọt interface để lưu trữ các attr dùng chung, sau đó tạo class kế thừa từ interface đó
-- Ở file App.config tạo một connection string 
-*
-`<connectionStrings>
+- Ở file App.config tạo một connection string
+``<connectionStrings>
 		<clear/>
 		<add name="ShopExampleConnection" providerName="System.Data.SqlClient" connectionString="data source=.\sqlexpress;initial catalog=ShopExample_InitialCodeFirst;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"/>
-	</connectionStrings>`
+	</connectionStrings>``
 *
 - Tạo class với đúng tên đã khai báo ở phần ConnectionString kế thừa từ interface DbContext, và khai báo các DbSet<Tênclass> Ví dụ: 
-  `public ShopExampleDBContext() : base("ShopExampleConnection")
+  ``public ShopExampleDBContext() : base("ShopExampleConnection")
         {
             // khi chúng ta load một bẳng cha thì không tự động include thêm bảng con
             this.Configuration.LazyLoadingEnabled = false;
         }
-  public DbSet<Footer> Footers { get; set; }`
+  public DbSet<Footer> Footers { get; set; }``
 - Ở tầng Data, Tạo một folder Repository để chứa các Repositori của các lớp đại diện
 - trong từng Repository, tạo một interface kế thừa từ IRepository chứa các phương thức phổ biến cho các hoạt động với Entity code first, sau đó là repositoy kế thừa từ RepositoriBase và Interface tương ứng.
 - RepositoryBase kế thừa từ IRepository, định nghĩa các phương thức như Add, GetAll, Delete, Update đã được khai báo trong IRepository
