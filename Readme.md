@@ -59,3 +59,31 @@ vào Package Manager Console
 7. Tạo class quản lý Authen 
 *
 
+### PROJECT sử dụng angularJS 
+các bước cài angularjs application for ASP.Net MVC5
+*
+1. Nhấn chuột phải vào project > Manager Client-Side Libraries Nó sẽ tạo một file libman.Json có dạng như sau:
+````
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": []
+}
+````
+2. Thêm các thư viện muốn cài vào như sau
+````
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "angular.js@1.8.3",
+      "destination": "Scripts/Plugins/"
+    }
+  ]
+}
+````
+
+3. Thêm đường dẫn file angular.js vào file .cshtml
+4. Ở tag html thêm `ng-app` để có thể sử dụng angular.js
+*
