@@ -5,15 +5,37 @@
 
 <!DOCTYPE html>
 
-<html ng-app>
+<html ng-app="MyModule">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <script src="~/Scripts/Plugins/angular.js"></script>
+    <script src="~/Scripts/SinglePageApplication/MyApp.js"></script>
 </head>
 <body>
-    <div> 
-        1 + 2 = {{1+2}}
+    <!--<div ng-controller="ParentController">-->
+
+
+        @*<div ng-controller="MyController2">
+                <h2>Controller 2 =========== </h2>
+                {{Handsome}}<br />
+                {{message}}<br />
+            </div>
+
+            <h3>This is message in parrent: {{message}}</h3>*@
+    <!--</div>-->
+
+    <div ng-controller="MyController">
+        <h2>Controller 1 =========== </h2>
+        <h1>{{message}}</h1>
+
+        <input name="number" ng-model="num" />
+        <button ng-click="checkNum()">Check</button>
+        <h1>{{result}}</h1>
+
+        <shop-Example-Directive></shop-Example-Directive>
+
     </div>
+
 </body>
 </html>

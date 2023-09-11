@@ -260,6 +260,7 @@
     <Content Include="Scripts\Plugins\core-testing.umd.min.js" />
     <Content Include="Scripts\Plugins\core.umd.js" />
     <Content Include="Scripts\Plugins\core.umd.min.js" />
+    <Content Include="Scripts\SinglePageApplication\MyApp.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -281,7 +282,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Assets\Admin\" />
     <Folder Include="Content\Assets\Client\" />
-    <Folder Include="Scripts\SinglePageApplication\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
