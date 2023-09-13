@@ -4,9 +4,9 @@
 
     app.controller('ProductCategoryListController', ProductCategoryListController)
 
-    ProductCategoryListController.$inject = ['$scope', 'ApiService']
+    ProductCategoryListController.$inject = ['$scope', 'ApiService', 'notificationService']
 
-    function ProductCategoryListController($scope, ApiService) {
+    function ProductCategoryListController($scope, ApiService, notificationService) {
         $scope.productCategories = []
         $scope.page = 0
         $scope.pagesCount = 0
@@ -30,6 +30,12 @@
             }
 
             ApiService.get('/api/productcategory/getall', config, function (result) {
+                if (result.data.TotalCount === 0) {
+                    notificationService.displayWarning('Không tìm thấy danh mục sản phẩm nào.')
+                } else {
+                    notificationService.displaySuccess('Đã tìm thấy ' + result.data.TotalCount + ' danh mục sản phẩm.')
+                }
+
                 $scope.productCategories = result.data.Items
                 $scope.page = result.data.Page
                 $scope.pagesCount = result.data.TotalPage

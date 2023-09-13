@@ -9,6 +9,10 @@
     {
       "library": "angular-ui-router@1.1.0",
       "destination": "Assets/Admin/Libs/Angular/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "Assets/Admin/Libs/Toastr/"
     }
   ]
 }

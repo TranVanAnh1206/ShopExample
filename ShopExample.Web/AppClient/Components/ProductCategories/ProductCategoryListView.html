@@ -40,7 +40,7 @@
 
             <div class="card-tools">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" ng-change="search()" ng-model="keyword" placeholder="enter keyword to search ..." aria-label="enter keyword to search ..." aria-describedby="button-search">
+                    <input type="text" class="form-control" style="width: 300px;" ng-model="keyword" placeholder="enter keyword to search ..." aria-label="enter keyword to search ..." aria-describedby="button-search">
                     <button class="btn btn-outline-secondary" type="button" ng-click="search()" id="button-search">Tìm kiếm</button>
                 </div>
 
@@ -87,7 +87,11 @@
         <!-- /.card-body -->
         <div class="card-footer clearfix" style="display: flex; justify-content: space-between; align-items: center;">
             <p>Tổng số bản ghi: {{totalCount}}</p>
-            <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="GetListProductCategory(page)"></pager-directive>
+            <div>
+                <p ng-hide="pagesCount == 0">Trang {{page}} / {{pagesCount}}</p>
+                <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="GetListProductCategory(page)"></pager-directive>
+
+            </div>
         </div>
     </div>
 
