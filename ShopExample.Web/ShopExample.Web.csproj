@@ -239,6 +239,8 @@
     <Content Include="AppClient\Components\Products\ProductEditView.html" />
     <Content Include="AppClient\Components\Products\ProductListController.js" />
     <Content Include="AppClient\Components\Products\ProductListView.html" />
+    <Content Include="AppClient\Shared\Directives\PagerDirective.html" />
+    <Content Include="AppClient\Shared\Directives\PagerDirective.js" />
     <Content Include="AppClient\Shared\Filter\Fillter.js" />
     <Content Include="AppClient\Shared\Service\ApiService.js" />
     <Content Include="Assets\Admin\Css\adminlte.css" />
@@ -443,7 +445,6 @@
     <Folder Include="AppClient\Components\Orders\" />
     <Folder Include="AppClient\Components\Roles\" />
     <Folder Include="AppClient\Components\Users\" />
-    <Folder Include="AppClient\Shared\Directive\" />
     <Folder Include="AppClient\Shared\Footer\" />
     <Folder Include="AppClient\Shared\Navigation\" />
     <Folder Include="App_Data\" />

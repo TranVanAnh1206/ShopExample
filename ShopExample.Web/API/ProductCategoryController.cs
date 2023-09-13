@@ -25,16 +25,26 @@ namespace ShopExample.Web.API
         }
 
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage )
+        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage, string keyword, int page = 1, int pageSize = 20)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
-                var listPC = _productCategoryService.GetAll();
+                var listPC = _productCategoryService.GetAll(keyword);
+                int totalRow = listPC.Count();
+                var query = listPC.OrderByDescending(x => x.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize);
 
                 var mapper = AutoMapperConfiguration.Configure();
-                var responseData = mapper.Map<List<ProductCategoryViewModel>>(listPC);
+                var responseData = mapper.Map<List<ProductCategoryViewModel>>(query);
 
-                var response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+                var paginationSet = new PaginationSet<ProductCategoryViewModel>()
+                {
+                    Items = responseData,
+                    Page = page,
+                    TotalCount = totalRow,
+                    TotalPage = (int)Math.Ceiling((double)totalRow / pageSize)
+                };
+
+                var response = requestMessage.CreateResponse(HttpStatusCode.OK, paginationSet);
 
                 return response;
             });

@@ -3,6 +3,10 @@
         padding: 0.4em 0.6em;
         font-size: 1.02em;
     }
+
+    .card-tools {
+        display: flex;
+    }
 </style>
 
 <!--Content Header(Page header)-->
@@ -35,6 +39,11 @@
             <h3 class="card-title">List product category</h3>
 
             <div class="card-tools">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" ng-change="search()" ng-model="keyword" placeholder="enter keyword to search ..." aria-label="enter keyword to search ..." aria-describedby="button-search">
+                    <button class="btn btn-outline-secondary" type="button" ng-click="search()" id="button-search">Tìm kiếm</button>
+                </div>
+
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                     <i class="fas fa-minus"></i>
                 </button>
@@ -42,14 +51,17 @@
                     <i class="fas fa-times"></i>
                 </button>
             </div>
+
+
         </div>
+
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th style="width: 5%">#</th>
                         <th>Name</th>
-                        <th style="width: 15%;"">Created Date</th>
+                        <th style="width: 15%;" ">Created Date</th>
                         <th style="width: 15%; text-align: center">Status</th>
                         <th style="width: 10%"></th>
                     </tr>
@@ -73,14 +85,9 @@
             </table>
         </div>
         <!-- /.card-body -->
-        <div class="card-footer clearfix">
-            <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">»</a></li>
-            </ul>
+        <div class="card-footer clearfix" style="display: flex; justify-content: space-between; align-items: center;">
+            <p>Tổng số bản ghi: {{totalCount}}</p>
+            <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="GetListProductCategory(page)"></pager-directive>
         </div>
     </div>
 
