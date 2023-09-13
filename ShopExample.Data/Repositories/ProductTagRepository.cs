@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShopExample.Data.Infrastructure;
+using ShopExample.Model.Model;
 
 namespace ShopExample.Data.Repositories
 {
-    using ShopExample.Data.Infrastructure;
-    using ShopExample.Model.Model;
 
-    interface IProductTagRepository : IRepository<ProductTag>
+    public interface IProductTagRepository : IRepository<ProductTag>
     {
 
     }

@@ -1,4 +1,6 @@
 ﻿using ShopExample.Model.Abstract;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
@@ -37,25 +39,32 @@ namespace ShopExample.Model.Model
         [Column(TypeName = "xml")]
         public string MoreImage { get; set; }
 
+        [DefaultValue(true)]
         public bool HomeFlag { get; set; }
 
+        [DefaultValue(true)]
         public bool HotFlag { get; set; }
 
+        [DefaultValue(0)]
         public int ViewCount { get; set; }
 
+        [DefaultValue(0)]
         public int BuyCount { get; set; }
 
         public int Quantity { get; set; }
 
         public decimal Price { get; set; }
 
-        public decimal PromotionPrice { get; set; }
+        public decimal? PromotionPrice { get; set; }
 
-        public int Warranty { get; set; } // Bảo hành - theo tháng
+        public int? Warranty { get; set; } // Bảo hành - theo tháng
 
+        [DefaultValue(0)]
         public int ReviewCount { get; set; }
 
         [MaxLength(500)]
         public string Origin { get; set; }
+
+        public IEnumerable<ProductTag> ProductTags { get; set; }
     }
 }

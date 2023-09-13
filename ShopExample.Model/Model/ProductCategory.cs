@@ -1,4 +1,5 @@
 ﻿using ShopExample.Model.Abstract;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -30,7 +31,8 @@ namespace ShopExample.Model.Model
         public string Image { get; set; }
 
         public int? DisplayOrder { get; set; }
-        
+
+        [DefaultValue(true)]
         public bool HomeFlag { get; set; }
     }
 }

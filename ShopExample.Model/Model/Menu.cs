@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -33,6 +34,7 @@ namespace ShopExample.Model.Model
         public string Target { get; set; }
 
         [Required]
+        [DefaultValue(true)]
         public bool Static { get; set; }
     }
 }

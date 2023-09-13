@@ -84,6 +84,14 @@
     <Compile Include="Migrations\202309091516335_ChangePrimaryKey.designer.cs">
       <DependentUpon>202309091516335_ChangePrimaryKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309111511320_updateProduct.cs" />
+    <Compile Include="Migrations\202309111511320_updateProduct.designer.cs">
+      <DependentUpon>202309111511320_updateProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309111545588_updateDb.cs" />
+    <Compile Include="Migrations\202309111545588_updateDb.designer.cs">
+      <DependentUpon>202309111545588_updateDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
@@ -135,6 +143,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309091516335_ChangePrimaryKey.resx">
       <DependentUpon>202309091516335_ChangePrimaryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309111511320_updateProduct.resx">
+      <DependentUpon>202309111511320_updateProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309111545588_updateDb.resx">
+      <DependentUpon>202309111545588_updateDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

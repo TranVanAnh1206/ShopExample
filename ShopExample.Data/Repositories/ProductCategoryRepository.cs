@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace ShopExample.Data.Repositories
 {
-    interface IProductCategoryRepository : IRepository<ProductCategory>
+    public interface IProductCategoryRepository : IRepository<ProductCategory>
     {
         /// <summary>
         /// Phương thức này không nằm trong tập phương thức có sắn của Class RepositoryBase thì phải tạo mới riêng

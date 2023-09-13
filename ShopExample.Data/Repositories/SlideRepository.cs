@@ -1,11 +1,11 @@
-﻿
+﻿using ShopExample.Data.Infrastructure;
+using ShopExample.Model.Model;
+
 
 namespace ShopExample.Data.Repositories
 {
-    using ShopExample.Data.Infrastructure;
-    using ShopExample.Model.Model;
 
-    interface ISlideRepository : IRepository<Slide>
+    public interface ISlideRepository : IRepository<Slide>
     {
 
     }

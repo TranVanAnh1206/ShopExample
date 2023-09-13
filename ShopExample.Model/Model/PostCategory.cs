@@ -1,6 +1,7 @@
 ﻿using ShopExample.Model.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace ShopExample.Model.Model
 
         public int? DisplayOrder { get; set; }
 
+        [DefaultValue(true)]
         public bool HomeFlag { get; set; }
 
         public virtual IEnumerable<Post> Post { get; set; }
