@@ -200,6 +200,7 @@
     <Compile Include="API\AccountController.cs" />
     <Compile Include="API\PostCategoryController.cs" />
     <Compile Include="API\ProductCategoryController.cs" />
+    <Compile Include="API\ProductController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -230,6 +231,8 @@
     <Content Include="AppClient\Components\Home\HomeController.js" />
     <Content Include="AppClient\Components\Home\HomeView.html" />
     <Content Include="AppClient\Components\ProductCategories\ProductCategory.module.js" />
+    <Content Include="AppClient\Components\ProductCategories\ProductCategoryAddController.js" />
+    <Content Include="AppClient\Components\ProductCategories\ProductCategoryAddView.html" />
     <Content Include="AppClient\Components\ProductCategories\ProductCategoryListController.js" />
     <Content Include="AppClient\Components\ProductCategories\ProductCategoryListView.html" />
     <Content Include="AppClient\Components\Products\Products.module.js" />

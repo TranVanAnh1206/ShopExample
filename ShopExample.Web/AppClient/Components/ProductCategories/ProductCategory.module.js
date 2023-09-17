@@ -11,6 +11,10 @@
 			url: "/products_category",
 			templateUrl: "/AppClient/Components/ProductCategories/ProductCategoryListView.html",
 			controller: "ProductCategoryListController"
+		}).state('add_product_category', {
+			url: "/add_product_category",
+			templateUrl: "/AppClient/Components/ProductCategories/ProductCategoryAddView.html",
+			controller: "ProductCategoryAddController"
 		})
 	}
 })();

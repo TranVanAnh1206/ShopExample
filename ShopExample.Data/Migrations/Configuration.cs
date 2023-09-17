@@ -43,6 +43,7 @@
             //manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
 
             CreateProductCategorySample(context);
+            CreateProductSample(context);
         }
 
         private void CreateProductCategorySample(ShopExampleDBContext context)
@@ -61,5 +62,22 @@
             }
 
         }
+
+        private void CreateProductSample(ShopExampleDBContext context)
+        {
+            if (context.Products.Count() == 0)
+            {
+                List<Product> listProd = new List<Product>()
+                {
+                    new Product() {ID = 231231, Name="IPhone 15 Pro Max 258GB", Alias="IPhone15, Apple, IPhone", CategoryID=5, Price=35990000, Origin="Apple", Quantity=165, CreatedDate=DateTime.Now, CreatedBy="TranVanAnh - Admin", },
+                    new Product() {ID = 231231, Name="Samsung galaxy", Alias="samsung-galaxy, samsung", CategoryID=5, Price=2990000, Origin="SamSung", Quantity=15, CreatedDate=DateTime.Now, CreatedBy="TranVanAnh - Admin", },
+                    new Product() {ID = 231231, Name="TV OSny", Alias="TV, Sony, TVSony", CategoryID=5, Price=12990000, Origin="Sony", Quantity=165, CreatedDate=DateTime.Now, CreatedBy="TranVanAnh - Admin", },
+                };
+                context.Products.AddRange(listProd);
+                context.SaveChanges();
+            }
+
+        }
+
     }
 }

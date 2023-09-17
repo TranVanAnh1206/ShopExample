@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +10,7 @@ namespace ShopExample.Web.Models
     {
         public long ID { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -21,6 +23,7 @@ namespace ShopExample.Web.Models
 
         public int? DisplayOrder { get; set; }
 
+        [Required]
         public bool HomeFlag { get; set; }
 
         public virtual IEnumerable<ProductViewModel> Post { get; set; }
@@ -37,6 +40,7 @@ namespace ShopExample.Web.Models
 
         public string MetaDescription { get; set; }
 
+        [Required]
         public bool Status { get; set; }
     }
 }

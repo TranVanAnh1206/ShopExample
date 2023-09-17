@@ -34,7 +34,26 @@ namespace ShopExample.Web.Infrastructure.Extensions
             pc.MetaKeyWord = pcVM.MetaKeyWord;
             pc.MetaDescription = pcVM.MetaDescription;
             pc.Status = pcVM.Status;
-    }
+        }
+
+        public static void UpdateProductCategory(this ProductCategory pc, ProductCategoryViewModel pcVM)
+        {
+            pc.ID = pcVM.ID;
+            pc.Name = pcVM.Name;
+            pc.Description = pcVM.Description;
+            pc.Alias = pcVM.Alias;
+            pc.ParentID = pcVM.ParentID;
+            pc.Image = pcVM.Image;
+            pc.DisplayOrder = pcVM.DisplayOrder;
+            pc.HomeFlag = pcVM.HomeFlag;
+            pc.CreatedDate = pcVM.CreatedDate;
+            pc.CreatedBy = pcVM.CreatedBy;
+            pc.ModifiedDate = pcVM.ModifiedDate;
+            pc.ModifiedBy = pcVM.ModifiedBy;
+            pc.MetaKeyWord = pcVM.MetaKeyWord;
+            pc.MetaDescription = pcVM.MetaDescription;
+            pc.Status = pcVM.Status;
+        }
 
         public static void UpdatePost(this Post p, PostViewModel pVM)
         {

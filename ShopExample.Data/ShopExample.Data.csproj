@@ -92,6 +92,14 @@
     <Compile Include="Migrations\202309111545588_updateDb.designer.cs">
       <DependentUpon>202309111545588_updateDb.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309140845275_AddProductSample.cs" />
+    <Compile Include="Migrations\202309140845275_AddProductSample.designer.cs">
+      <DependentUpon>202309140845275_AddProductSample.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202309141556126_UpdateCollumm.cs" />
+    <Compile Include="Migrations\202309141556126_UpdateCollumm.designer.cs">
+      <DependentUpon>202309141556126_UpdateCollumm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
@@ -149,6 +157,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309111545588_updateDb.resx">
       <DependentUpon>202309111545588_updateDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309140845275_AddProductSample.resx">
+      <DependentUpon>202309140845275_AddProductSample.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309141556126_UpdateCollumm.resx">
+      <DependentUpon>202309141556126_UpdateCollumm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
