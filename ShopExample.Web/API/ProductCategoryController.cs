@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using ShopExample.Web.Infrastructure.Extensions;
+using System.Threading;
 
 namespace ShopExample.Web.API
 {
@@ -25,18 +26,37 @@ namespace ShopExample.Web.API
             this._productCategoryService = productCategoryService;
         }
 
+        [Route("getbyid/{id:long}")]
+        [HttpGet]
+        public HttpResponseMessage GetByID(HttpRequestMessage requestMessage, long id)
+        {
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                var listPC = _productCategoryService.GetById(id);
+
+                var mapper = AutoMapperConfiguration.Configure();
+                var responseData = mapper.Map<ProductCategory, ProductCategoryViewModel>(listPC);
+
+                var response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+
+                return response;
+            });
+        }
+
         [Route("getallparent")]
         [HttpGet]
         public HttpResponseMessage GetAll(HttpRequestMessage requestMessage)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
+                HttpResponseMessage response = null;
+
                 var listPC = _productCategoryService.GetAll();
 
                 var mapper = AutoMapperConfiguration.Configure();
                 var responseData = mapper.Map<List<ProductCategoryViewModel>>(listPC);
 
-                var response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+                response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
 
                 return response;
             });
@@ -71,6 +91,7 @@ namespace ShopExample.Web.API
 
         [Route("create")]
         [HttpPost]
+        [AllowAnonymous]
         public HttpResponseMessage Add (HttpRequestMessage requestMessage, ProductCategoryViewModel pcVM)
         {
             return CreatedHttpResponse(requestMessage, () =>
@@ -85,6 +106,8 @@ namespace ShopExample.Web.API
                 {
                     var newProductCateg = new ProductCategory();
                     newProductCateg.UpdateProductCategory(pcVM);
+                    newProductCateg.CreatedDate = DateTime.Now;
+                    newProductCateg.CreatedBy = "";
 
                     _productCategoryService.Add(newProductCateg);
                     _productCategoryService.SaveChanged();
@@ -92,6 +115,39 @@ namespace ShopExample.Web.API
                     var mapper = AutoMapperConfiguration.Configure();
                     var responseData = mapper.Map<ProductCategory, ProductCategoryViewModel>(newProductCateg);
                     response = requestMessage.CreateResponse(HttpStatusCode.Created, responseData);
+                }
+
+                return response;
+            });
+        }
+
+        [Route("update")]
+        [HttpPut]
+        [AllowAnonymous]
+        public HttpResponseMessage Update(HttpRequestMessage requestMessage, ProductCategoryViewModel pcVM)
+        {
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage response = null;
+
+                if (!ModelState.IsValid)
+                {
+                    response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var dbProductCategory = _productCategoryService.GetById(pcVM.ID);
+                    dbProductCategory.UpdateProductCategory(pcVM);
+                    dbProductCategory.ModifiedDate = DateTime.Now;
+                    dbProductCategory.ModifiedBy = "";
+
+                    _productCategoryService.Update(dbProductCategory);
+                    _productCategoryService.SaveChanged(); 
+
+                    var mapper = AutoMapperConfiguration.Configure();
+                    var responseData = mapper.Map<ProductCategory, ProductCategoryViewModel>(dbProductCategory);
+
+                    response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
                 }
 
                 return response;

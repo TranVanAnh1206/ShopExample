@@ -2,24 +2,28 @@
 
     app.controller('ProductCategoryAddController', ProductCategoryAddController);
 
-    ProductCategoryAddController.$inject = ['$scope', 'ApiService', 'notificationService', '$state']
+    ProductCategoryAddController.$inject = ['$scope', 'ApiService', 'notificationService', '$state', 'CommonService']
 
-    function ProductCategoryAddController($scope, ApiService, notificationService, $state) {
+    function ProductCategoryAddController($scope, ApiService, notificationService, $state, CommonService) {
         $scope.productCategory = {
             CreatedDate: new Date(),
             Status: true,
-            HomeFlag: Status ? true : false,
-            Name: 'Danh mục 1'
+            HomeFlag: true,
         }
 
         $scope.parentCategories = []
         $scope.addProductCategory = AddproductCategory
+        $scope.getSEOTitle = GetSEOTitle
+
+        function GetSEOTitle() {
+            $scope.productCategory.Alias = CommonService.getSEOTitle($scope.productCategory.Name)
+        }
 
         function AddproductCategory() {
 
             ApiService.post('api/productcategory/create', $scope.productCategory, (result) => {
                 notificationService.displaySuccess(result.data.Name + ' đã được thêm mới.')
-                //$state.go('products_category') 
+                $state.go('products_category') 
             }, (error) => {
                 notificationService.displayError('Thêm mới không thành công.')
             })

@@ -8,103 +8,99 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Product category - Add new</li>
+                    <li class="breadcrumb-item active"> Product category / Update / {{productCategory.Name}} </li>
                 </ol>
             </div>
         </div>
     </div>
     <!-- /.container-fluid -->
 </section>
-
 <!--Main content-->
 <section class="content">
     <!-- Horizontal Form -->
     <div class="card card-info">
         <div class="card-header">
-            <h3 class="card-title">Add new product category</h3>
+            <h3 class="card-title">Update product category</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form class="form-horizontal" novalidate name="frmAddProductcategory" role="form" ng-submit="addProductCategory()">
+        <form class="form-horizontal" novalidate name="frmUpdateProductcategory" role="form" ng-submit="updateProductCategory()">
             <div class="card-body">
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Name <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input ng-model="productCategory.Name" ng-maxlength="501" required ng-change="getSEOTitle()" class="form-control" name="name" placeholder="Name product category ...">
-                        <span ng-show="frmAddProductcategory.name.$invalid" class="text-danger">Category name is required.</span>
-                        <span ng-show="frmAddProductcategory.name.$error.maxlength" class="text-danger">Category name no more than 501 characters.</span>
+                        <input type="text" ng-model="productCategory.Name" ng-change="getSEOTitle()" class="form-control" name="name" placeholder="Name product category ...">
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">SEO Title <span class="text-danger">*</span></label>
+                    <label class="col-sm-2 col-form-label">SEO title <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" name="alias" ng-maxlength="501" required ng-model="productCategory.Alias" class="form-control" placeholder="Alias ...">
-                        <span ng-show="frmAddProductcategory.alias.$invalid" class="text-danger">SEO Title is required.</span>
-                        <span ng-show="frmAddProductcategory.alias.$error.maxlength" class="text-danger">Category name no more than 501 characters.</span>
+                        <input type="text" name="alias" ng-model="productCategory.Alias" class="form-control" placeholder="Alias ...">
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-10">
                         <input type="text" name="description" ng-model="productCategory.Description" class="form-control" placeholder="Description ...">
                     </div>
                 </div>
-
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Parent</label>
+                    <label class="col-sm-2 col-form-label">Parent category</label>
                     <div class="col-sm-10">
                         <select ng-model="productCategory.ParentID" name="parentID" ng-options="option.ID as option.Name for option in parentCategories" class="form-control">
                             <option value="">--- Choose parent category ---</option>
                         </select>
                     </div>
-
                     <input name="parentID" type="hidden" ng-model="productCategory.ParentID" />
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Display order</label>
                     <div class="col-sm-10">
-                        <input type="number" name="displayOrder" required ng-model="productCategory.DisplayOrder" class="form-control" placeholder="Display order ...">
-                        <span ng-show="frmAddProductcategory.displayOrder.$invalid" class="text-danger">Display order is required.</span>
+                        <input type="number" name="displayOrder" ng-model="productCategory.DisplayOrder" class="form-control" placeholder="Display order ...">
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Image</label>
                     <div class="col-sm-10">
                         <input type="file" name="image" ng-model="productCategory.Image" class="form-control" placeholder="Image ...">
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Meta keyword</label>
                     <div class="col-sm-10">
                         <input type="text" name="metaKeyword" ng-model="productCategory.MetaKeyWord" class="form-control" placeholder="Meta keyword ...">
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Meta description</label>
                     <div class="col-sm-10">
                         <textarea ng-model="productCategory.MetaDescription" name="metaDescription" class="form-control" placeholder="Meta description ..."></textarea>
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Status <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="checkbox" ng-model="productCategory.Status" ng-checked="productCategory.Status" id="status">
+                        <input type="checkbox" name="status" ng-model="productCategory.Status" ng-checked="productCategory.Status" id="status">
                         <label for="status"> Kích hoạt</label>
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Show on home <span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="checkbox" ng-checked="productCategory.HomeFlag" ng-model="productCategory.HomeFlag" id="homeFlag">
+                        <input type="checkbox" name="homeFlag" ng-checked="productCategory.HomeFlag" ng-model="productCategory.HomeFlag" id="homeFlag">
                         <label for="homeFlag"> Hiển thị trang chủ</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Created date</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" readonly type="text" name="createdDate" ng-model="productCategory.CreatedDate" id="createdDate">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Modified date</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" readonly type="text" name="modifiedDate" ng-model="productCategory.ModifiedDate" id="modifiedDate">
                     </div>
                 </div>
 
@@ -115,8 +111,8 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-                <button ui-sref="products_category" type="button" class="btn btn-default">&lt; Back to List</button>
-                <button type="submit" ng-disabled="frmAddProductcategory.$invalid" class="btn btn-info float-right">Create</button>
+                <button ui-sref="products_category" class="btn btn-default">&lt; Back to List</button>
+                <button type="submit" class="btn btn-info float-right">Update</button>
             </div>
             <!-- /.card-footer -->
         </form>
