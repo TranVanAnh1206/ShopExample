@@ -87,3 +87,7 @@ các bước cài angularjs application for ASP.Net MVC5
 3. Thêm đường dẫn file angular.js vào file .cshtml
 4. Ở tag html thêm `ng-app` để có thể sử dụng angular.js
 *
+
+
+### Xóa một bản ghi sử dụng `bootbox` và `ngBootbox`
+1. Cài đặt bootbox và ngBootbox 
