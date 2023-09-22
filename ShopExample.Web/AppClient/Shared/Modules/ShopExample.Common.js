@@ -4,7 +4,7 @@
 
 
 (function () {
-	angular.module('shopexample.common', ['ui.router'])
+	angular.module('shopexample.common', ['ui.router', 'ngBootbox'])
 
 
 })();

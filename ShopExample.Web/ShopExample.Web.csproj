@@ -332,6 +332,10 @@
     <Content Include="Assets\Admin\Libs\Angular\stateEvents.min.js" />
     <Content Include="Assets\Admin\Libs\Angular\ui-router-angularjs.js" />
     <Content Include="Assets\Admin\Libs\Angular\ui-router-angularjs.min.js" />
+    <Content Include="Assets\Admin\Libs\bootbox\bootbox.js" />
+    <Content Include="Assets\Admin\Libs\bootbox\bootbox.min.js" />
+    <Content Include="Assets\Admin\Libs\ngBootbox\ngBootbox.js" />
+    <Content Include="Assets\Admin\Libs\ngBootbox\ngBootbox.min.js" />
     <Content Include="Assets\Admin\Libs\Toastr\toastr.css" />
     <Content Include="Assets\Admin\Libs\Toastr\toastr.min.css" />
     <Content Include="Assets\Admin\Libs\Toastr\toastr.min.js" />

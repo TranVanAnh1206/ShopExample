@@ -154,5 +154,34 @@ namespace ShopExample.Web.API
             });
         }
 
+        [Route("delete")]
+        [HttpDelete]
+        [AllowAnonymous]
+        public HttpResponseMessage Delete (HttpRequestMessage requestMessage, int id)
+        {
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage response = null;
+
+                if (!ModelState.IsValid)
+                {
+                    response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var oldProdCategory = _productCategoryService.Delete(id);
+                    _productCategoryService.SaveChanged();
+
+                    var mapper = AutoMapperConfiguration.Configure();
+                    var responseData = mapper.Map<ProductCategory, ProductCategoryViewModel>(oldProdCategory);
+
+                    response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+                }
+
+                return response;
+            });
+
+        }
+
     }
 }
