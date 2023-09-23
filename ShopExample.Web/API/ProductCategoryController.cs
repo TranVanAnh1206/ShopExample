@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Http;
 using ShopExample.Web.Infrastructure.Extensions;
 using System.Threading;
+using System.Web.Script.Serialization;
 
 namespace ShopExample.Web.API
 {
@@ -181,6 +182,37 @@ namespace ShopExample.Web.API
                 return response;
             });
 
+        }
+
+        [HttpDelete]
+        [Route("deletemulti")]
+        [AllowAnonymous]
+        public HttpResponseMessage DeleteMulti (HttpRequestMessage requestMessage, string checkedProductCategoryJson)
+        {
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage response = null;
+
+                if (!ModelState.IsValid)
+                {
+                    response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                else
+                {
+                    var listProductCategory = new JavaScriptSerializer().Deserialize<List<ProductCategory>>(checkedProductCategoryJson);
+
+                    foreach (var item in listProductCategory)
+                    {
+                        _productCategoryService.Delete(item.ID);
+                    }
+
+                    _productCategoryService.SaveChanged();
+
+                    response = requestMessage.CreateResponse(HttpStatusCode.OK, listProductCategory.Count);
+                }
+
+                return response;
+            });
         }
 
     }

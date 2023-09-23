@@ -28,7 +28,14 @@
 </section>
 
 <section class="content-header">
-    <a ui-sref="add_product_category" class="btn-primary btn">&plus; Create new</a>
+    <a ui-sref="add_product_category" class="btn-primary btn">
+        <i class="fa-solid fa-plus fa-beat"></i>
+        Create new
+    </a>
+    <button ng-click="deleteMultiple()" id="btnDeleteMulti" hidden class="btn-danger btn">
+        <i class="fa-sharp fa-solid fa-trash-can fa-shake"></i>
+        Xóa
+    </button>
 </section>
 
 <!--Main content-->
@@ -41,7 +48,9 @@
             <div class="card-tools">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" style="width: 300px;" ng-model="keyword" placeholder="enter keyword to search ..." aria-label="enter keyword to search ..." aria-describedby="button-search">
-                    <button class="btn btn-outline-secondary" type="button" ng-click="search()" id="button-search">Tìm kiếm</button>
+                    <button style="margin-right: 25px;" class="btn btn-outline-secondary" type="button" ng-click="search()" id="button-search">
+                        <i class="fa-sharp fa-solid fa-magnifying-glass fa-beat"></i>
+                    </button>
                 </div>
 
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -59,6 +68,7 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th style="width: 3%; text-align: center; cursor: pointer; "><input ng-click="selectAll()" type="checkbox" name="selectAll" /></th>
                         <th style="width: 5%">#</th>
                         <th>Name</th>
                         <th style="width: 15%;" ">Created Date</th>
@@ -66,8 +76,10 @@
                         <th style="width: 10%"></th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr ng-repeat="item in productCategories">
+                        <td><input style="cursor: pointer; " name="selectAll" ng-model="item.checked" type="checkbox" /></td>
                         <td>{{item.ID}}</td>
                         <td>{{item.Name}}</td>
                         <td>{{item.CreatedDate | date:'dd/MM/yyyy'}}</td>
@@ -77,8 +89,8 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-primary" ui-sref="update_product_category({id:item.ID})"><i class="fa fa-pen"></i> </button>
-                            <button class="btn btn-danger" ng-click="deleteProductCategory(item.ID)"><i class="fa fa-trash"></i> </button>
+                            <button class="btn btn-primary" ui-sref="update_product_category({id:item.ID})"><i class="fa-sharp fa-solid fa-pen-nib fa-beat"></i></button>
+                            <button class="btn btn-danger" ng-click="deleteProductCategory(item.ID)"><i class="fa-sharp fa-solid fa-trash-can fa-shake"></i> </button>
                         </td>
                     </tr>
                 </tbody>

@@ -4,9 +4,9 @@
 
     app.controller('ProductCategoryListController', ProductCategoryListController)
 
-    ProductCategoryListController.$inject = ['$scope', 'ApiService', 'notificationService', '$ngBootbox']
+    ProductCategoryListController.$inject = ['$scope', 'ApiService', 'notificationService', '$ngBootbox', '$filter']
 
-    function ProductCategoryListController($scope, ApiService, notificationService, $ngBootbox) {
+    function ProductCategoryListController($scope, ApiService, notificationService, $ngBootbox, $filter) {
         $scope.productCategories = []
         $scope.page = 0
         $scope.pagesCount = 0
@@ -14,11 +14,16 @@
         $scope.getListProductCategory = GetListProductCategory
         $scope.search = Search
         $scope.deleteProductCategory = DeleteProductCategory
+        $scope.selectAll = SelectAll
+        $scope.deleteMultiple = DeleteMultiple
+        $scope.isSelectAll = false
 
+        // Hàm xử lý tìm kiếm sản phẩm
         function Search() {
             GetListProductCategory()
         }
 
+        // Hàm xử lý get ra tất cả bản ghi
         function GetListProductCategory(page) {
             page = page || 1
 
@@ -46,6 +51,7 @@
             })
         }
 
+        // Hàm xử lý chỉ xóa một bản ghi
         function DeleteProductCategory(id) {
             $ngBootbox.confirm('Bạn có chắc muốn xóa.').then(function () {
                 var config = {
@@ -60,6 +66,56 @@
                 }, function (error) {
                     notificationService.displayError('Xóa không thành công, có lỗi phát sinh')
                 })
+            })
+        }
+
+        // Hàm select một product category
+        $scope.$watch('productCategories', function (n, o) {
+            var checked = $filter('filter')(n, { checked: true, })
+
+            if (checked.length) {
+                $scope.selected = checked
+                $('#btnDeleteMulti').removeAttr('hidden')
+
+                if (checked.length === n.length) {
+                    $scope.isSelectAll = true
+                }
+            }
+            else {
+                $('#btnDeleteMulti').attr('hidden', 'hidden');
+                $scope.isSelectAll = false
+            }
+        }, true)
+
+        // Hàm sử lý checkout        
+        function SelectAll() {
+            if ($scope.isSelectAll === false) {
+                angular.forEach($scope.productCategories, (item) => {
+                    item.checked = true
+                })
+                $scope.isSelectAll = true
+            }
+            else {
+                angular.forEach($scope.productCategories, (item) => {
+                    item.checked = false
+                })
+                $scope.isSelectAll = false
+            }
+        }
+
+        // Hàm xử lý xóa nhiều bản ghi
+        function DeleteMultiple() {
+            const config = {
+                params: {
+                    checkedProductCategoryJson: JSON.stringify($scope.selected),
+                }
+            }
+
+            ApiService.del('api/productcategory/deletemulti', config, function (result) {
+                notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi.')
+                Search()
+            }, function (error) {
+                notificationService.displayError('Không thể xóa, có lỗi phát sinh.')
             })
         }
 
