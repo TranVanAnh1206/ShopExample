@@ -1,7 +1,6 @@
 ﻿/// <reference path="../../../Assets/Admin/Libs/angular/angular.js" />
 
 (function (app) {
-
     app.controller('ProductCategoryListController', ProductCategoryListController)
 
     ProductCategoryListController.$inject = ['$scope', 'ApiService', 'notificationService', '$ngBootbox', '$filter']
@@ -79,6 +78,10 @@
 
                 if (checked.length === n.length) {
                     $scope.isSelectAll = true
+                    $('#txb_selectAll').attr('checked', 'checked');
+                } else {
+                    $('#txb_selectAll').removeAttr('checked');
+                    $scope.isSelectAll = false
                 }
             }
             else {

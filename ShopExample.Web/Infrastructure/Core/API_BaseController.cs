@@ -43,7 +43,7 @@ namespace ShopExample.Web.Infrastructure.Core
                 LogError(ex);
                 responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.InnerException.Message);
             }
-            catch(DbUpdateException dbex)
+            catch (DbUpdateException dbex)
             {
                 LogError(dbex);
                 responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbex.InnerException.Message);
@@ -59,6 +59,60 @@ namespace ShopExample.Web.Infrastructure.Core
         }
 
         private void LogError(Exception ex)
+        {
+            try
+            {
+                Error err = new Error();
+                err.CreatedDate = DateTime.Now;
+                err.StackTrace = ex.StackTrace;
+                err.Message = ex.Message;
+
+                _errorService.Created(err);
+                _errorService.SaveChanged();
+            }
+            catch
+            {
+
+            }
+        }
+
+        protected async Task<HttpResponseMessage> CreatedHttpResponseAsync(HttpRequestMessage requestMessage, Func<Task<HttpResponseMessage>> func)
+        {
+            HttpResponseMessage responseMessage = null;
+            try
+            {
+                responseMessage = await func.Invoke();
+
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation error.");
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Trace.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                    }
+                }
+                await LogErrorAsync(ex);
+                responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.InnerException.Message);
+            }
+            catch (DbUpdateException dbex)
+            {
+                await LogErrorAsync(dbex);
+                responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbex.InnerException.Message);
+            }
+            catch (Exception ex)
+            {
+                await LogErrorAsync(ex);
+                responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+
+            return responseMessage;
+
+        }
+
+        private async Task LogErrorAsync(Exception ex)
         {
             try
             {

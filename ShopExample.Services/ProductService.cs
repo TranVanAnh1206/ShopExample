@@ -15,6 +15,7 @@ namespace ShopExample.Services
         Product Delete(long id);
         void Update(Product product);
         IEnumerable<Product> GetAll();
+        Task<IEnumerable<Product>> GetAllAsync();
         IEnumerable<Product> GetAll(string keyword);
         Product GetByID(long id);
         IEnumerable<Product> GetAllByCategoryID(long categID);
@@ -58,6 +59,11 @@ namespace ShopExample.Services
             {
                 return _productRepository.GetAll();
             }
+        }
+
+        public async Task<IEnumerable<Product>> GetAllAsync()
+        {
+            return await _productRepository.GetAllAsync();
         }
 
         public IEnumerable<Product> GetAllByCategoryID(long categID)

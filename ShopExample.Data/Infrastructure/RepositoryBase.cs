@@ -154,6 +154,22 @@ namespace ShopExample.Data.Infrastructure
         {
             return dataContext.Set<T>().Count<T>(predicate) > 0;
         }
+
+        public async Task<IEnumerable<T>> GetAllAsync(string[] includes = null)
+        {
+            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = dataContext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return await query.ToListAsync();
+            }
+
+            return await dataContext.Set<T>().ToArrayAsync();
+        }
+
+
         #endregion
     }
 }

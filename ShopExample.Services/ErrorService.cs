@@ -13,6 +13,7 @@ namespace ShopExample.Services
     {
         Error Created(Error error);
         void SaveChanged();
+        void SaveChangedAsync();
     }
 
     public class ErrorService : IErrorService
@@ -32,6 +33,11 @@ namespace ShopExample.Services
         }
 
         public void SaveChanged()
+        {
+            _unitOfWork.Commit();
+        }
+
+        public void SaveChangedAsync()
         {
             _unitOfWork.Commit();
         }

@@ -55,6 +55,36 @@ namespace ShopExample.Web.Infrastructure.Extensions
             pc.Status = pcVM.Status;
         }
 
+        public static void UpdateProduct(this Product p, ProductViewModel pVM)
+        {
+            p.ID = pVM.ID;
+            p.Name = pVM.Name;
+            p.Description = pVM.Description;
+            p.Contents = pVM.Contents;
+            p.Alias = pVM.Alias;
+            p.CategoryID = pVM.CategoryID;
+            p.Image = pVM.Image;
+            p.MoreImage = pVM.MoreImage;
+            p.Quantity = pVM.Quantity;
+            p.Price = pVM.Price;
+            p.PromotionPrice = pVM.PromotionPrice;
+            p.Warranty = pVM.Warranty;
+            p.Origin = pVM.Origin;
+            //p.DisplayOrder = pVM.DisplayOrder;
+            p.HomeFlag = pVM.HomeFlag;
+            p.HotFlag = pVM.HotFlag;
+            p.ViewCount = pVM.ViewCount;
+            p.BuyCount = pVM.BuyCount;
+            p.ReviewCount = pVM.ReviewCount;
+            p.CreatedDate = pVM.CreatedDate;
+            p.CreatedBy = pVM.CreatedBy;
+            p.ModifiedDate = pVM.ModifiedDate;
+            p.ModifiedBy = pVM.ModifiedBy;
+            p.MetaKeyWord = pVM.MetaKeyWord;
+            p.MetaDescription = pVM.MetaDescription;
+            p.Status = pVM.Status;
+        }
+
         public static void UpdatePost(this Post p, PostViewModel pVM)
         {
             p.ID = pVM.ID;
