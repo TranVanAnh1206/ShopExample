@@ -15,9 +15,11 @@
         $scope.addProduct = AddProduct
         $scope.getSEOTitle = GetSEOTitle
         $scope.ckeditorOptions = {
-            language: 'vi',
+            language: 'en',
             height: '200px',
+            uiColor = '#AADC6E',
         }
+        $scope.chooseImage = ChooseImage
 
         function GetSEOTitle() {
             $scope.product.Alias = CommonService.getSEOTitle($scope.product.Name)
@@ -39,6 +41,14 @@
                 notificationService.displayError('Can not create new product ...')
 
             })
+        }
+
+        function ChooseImage() {
+            var finder = new CKFinder()
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.product.Image = fileUrl
+            }
+            finder.popup()
         }
 
         GetProductCategory()
