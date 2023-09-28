@@ -1,10 +1,14 @@
-﻿(function (app) {
+﻿
+
+(function (app) {
 
     app.controller('ProductEditController', ProductEditController)
 
     ProductEditController.$inject = ['$scope', 'ApiService', 'CommonService', '$state', 'notificationService', '$stateParams']
 
     function ProductEditController($scope, ApiService, CommonService, $state, notificationService, $stateParams) {
+        // Khu vực định nghĩa các biến
+
         $scope.product = {
             ModifiedDate: new Date(),
             Status: true,
@@ -15,10 +19,15 @@
             uiColor: '#AADC6E',
         }
         $scope.productCategories = []
+        $scope.moreImgList = []
         $scope.updateProduct = UpdateProduct
         $scope.getProductCategory = GetProductCategory
         $scope.getSEOTitle = GetSEOTitle
         $scope.loadProductDetail = LoadProdcutDetail
+        $scope.chooseMoreImage = ChooseMoreImage
+        $scope.chooseImage = ChooseImage
+
+        // Khu vực định nghĩa các hàm
 
         function GetSEOTitle() {
             $scope.product.Alias = CommonService.getSEOTitle($scope.product.Name)
@@ -28,6 +37,7 @@
             ApiService.get('api/product/getbyid/' + $stateParams.id, null,
                 function (result) {
                     $scope.product = result.data
+                    $scope.moreImgList = JSON.parse($scope.product.MoreImage)
                 }, function (error) {
                     notificationService.displayError('Fail to load data ...')
                 })
@@ -43,6 +53,7 @@
         }
 
         function UpdateProduct() {
+            $scope.product.MoreImage = JSON.stringify($scope.moreImgList)
             ApiService.put('api/product/update', $scope.product, function (result) {
                 notificationService.displaySuccess('Update success ...')
                 $state.go('products')
@@ -50,6 +61,28 @@
                 notificationService.displayError('Update failed ... ')
             })
         }
+
+        function ChooseMoreImage() {
+            var finder = new CKFinder()
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.moreImgList.push(fileUrl)
+                })
+            }
+            finder.popup()
+        }
+
+        function ChooseImage() {
+            var finder = new CKFinder()
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.product.Image = fileUrl
+                })
+            }
+            finder.popup()
+        }
+
+        // Khu vực gọi hàm
 
         $scope.getProductCategory()
         $scope.loadProductDetail()

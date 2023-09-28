@@ -12,6 +12,7 @@
         }
 
         $scope.categories = []
+        $scope.moreImgList = []
         $scope.addProduct = AddProduct
         $scope.getSEOTitle = GetSEOTitle
         $scope.ckeditorOptions = {
@@ -20,6 +21,7 @@
             uiColor: '#AADC6E',
         }
         $scope.chooseImage = ChooseImage
+        $scope.chooseMoreImage = ChooseMoreImage
 
         function GetSEOTitle() {
             $scope.product.Alias = CommonService.getSEOTitle($scope.product.Name)
@@ -34,6 +36,7 @@
         }
 
         function AddProduct() {
+            $scope.product.MoreImage = JSON.stringify($scope.moreImgList)
             ApiService.post('api/product/addnew', $scope.product, function (result) {
                 notificationService.displaySuccess('Successfully created a new product.')
                 $state.go('products')
@@ -46,7 +49,19 @@
         function ChooseImage() {
             var finder = new CKFinder()
             finder.selectActionFunction = function (fileUrl) {
-                $scope.product.Image = fileUrl
+                $scope.$apply(function () {
+                    $scope.product.Image = fileUrl
+                })
+            }
+            finder.popup()
+        }
+
+        function ChooseMoreImage() {
+            var finder = new CKFinder()
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.moreImgList.push(fileUrl)
+                })
             }
             finder.popup()
         }
