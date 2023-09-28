@@ -6,7 +6,7 @@ namespace ShopExample.Data.Repositories
     using ShopExample.Data.Infrastructure;
     using ShopExample.Model.Model;
 
-    interface ITagRepository : IRepository<Tag>
+    public interface ITagRepository : IRepository<Tag>
     {
 
     }

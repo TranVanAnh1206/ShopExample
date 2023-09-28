@@ -13,6 +13,6 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserImageBrowseUrl = '/Assets/Admin/Libs/CKFinder/ckfinder.html?type=Images';
     config.filebrowserUploadUrl = '/Assets/Admin/Libs/CKFinder/connector?command=QuickUpload&type=Files';
     config.filebrowserImageUploadUrl = '/Assets/Admin/Libs/CKFinder/connector?command=QuickUpload&type=Images';
-    config.filebrowserWindowWidth = '1000';
-    config.filebrowserWindowHeight = '700';
+    config.filebrowserWindowWidth = '1200';
+    config.filebrowserWindowHeight = '800';
 };

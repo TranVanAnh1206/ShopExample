@@ -65,6 +65,8 @@ namespace ShopExample.Model.Model
         [MaxLength(500)]
         public string Origin { get; set; }
 
+        public string Tags { get; set; }
+
         public IEnumerable<ProductTag> ProductTags { get; set; }
     }
 }

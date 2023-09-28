@@ -26,6 +26,32 @@ namespace ShopExample.Web.API
             this._productService = productService;
         }
 
+        [Route("getbyid/{id}")]
+        [HttpGet]
+        public HttpResponseMessage Get(HttpRequestMessage requestMessage, long id)
+        {
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage response = null;
+
+                try
+                {
+                    var product = _productService.GetByID(id);
+
+                    var mapper = AutoMapperConfiguration.Configure();
+                    var responseData = mapper.Map< Product, ProductViewModel>(product);
+
+                    response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+                }
+                catch (Exception ex)
+                {
+                    response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+                }
+
+                return response;
+            });
+        }
+
         [Route("getall")]
         public async Task<HttpResponseMessage> GetAll(HttpRequestMessage requestMessage)
         {
@@ -74,7 +100,57 @@ namespace ShopExample.Web.API
                             var responseData = mapper.Map<Product, ProductViewModel>(newProduct);
 
                             response = requestMessage.CreateResponse(HttpStatusCode.Created, responseData);
-                        } catch (Exception ex)
+                        }
+                        catch (Exception ex)
+                        {
+                            response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+                }
+
+                return response;
+            });
+        }
+
+        [Route("update")]
+        [HttpPut]
+        [AllowAnonymous]
+        public HttpResponseMessage Put(HttpRequestMessage requestMessage, ProductViewModel pvm)
+        {
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage response = null;
+
+                try
+                {
+                    if (!ModelState.IsValid)
+                    {
+                        response = requestMessage.CreateResponse(HttpStatusCode.NoContent, ModelState);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            var product = _productService.GetByID(pvm.ID);
+                            product.UpdateProduct(pvm);
+                            product.ModifiedDate = DateTime.Now;
+                            product.CreatedBy = "Admin";
+
+                            _productService.Update(product);
+                            _productService.SaveChanged();
+
+                            var mapper = AutoMapperConfiguration.Configure();
+                            var responseData = mapper.Map<Product, ProductViewModel>(product);
+
+                            response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+
+                        }
+                        catch (Exception ex)
                         {
                             response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
 

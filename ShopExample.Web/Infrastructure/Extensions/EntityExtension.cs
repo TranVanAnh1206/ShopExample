@@ -83,6 +83,7 @@ namespace ShopExample.Web.Infrastructure.Extensions
             p.MetaKeyWord = pVM.MetaKeyWord;
             p.MetaDescription = pVM.MetaDescription;
             p.Status = pVM.Status;
+            p.Tags = pVM.Tags;
         }
 
         public static void UpdatePost(this Post p, PostViewModel pVM)

@@ -100,6 +100,10 @@
     <Compile Include="Migrations\202309141556126_UpdateCollumm.designer.cs">
       <DependentUpon>202309141556126_UpdateCollumm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202309280313513_addTagFieldForProductTable.cs" />
+    <Compile Include="Migrations\202309280313513_addTagFieldForProductTable.designer.cs">
+      <DependentUpon>202309280313513_addTagFieldForProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202309141556126_UpdateCollumm.resx">
       <DependentUpon>202309141556126_UpdateCollumm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202309280313513_addTagFieldForProductTable.resx">
+      <DependentUpon>202309280313513_addTagFieldForProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

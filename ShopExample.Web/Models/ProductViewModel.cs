@@ -57,6 +57,7 @@ namespace ShopExample.Web.Models
 
         public bool Status { get; set; }
 
+        public string Tags { get; set; }
         public virtual IEnumerable<ProductTagViewModel> ProductTags { get; set; }
     }
 }

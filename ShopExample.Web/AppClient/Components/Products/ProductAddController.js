@@ -17,7 +17,7 @@
         $scope.ckeditorOptions = {
             language: 'en',
             height: '200px',
-            uiColor = '#AADC6E',
+            uiColor: '#AADC6E',
         }
         $scope.chooseImage = ChooseImage
 

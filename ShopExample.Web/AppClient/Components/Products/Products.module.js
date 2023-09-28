@@ -15,6 +15,10 @@
 			url: "/product_add",
 			templateUrl: "/AppClient/Components/Products/ProductAddView.html",
 			controller: "ProductAddController"
+		}).state('update_product', {
+			url: "/update_product/:id",
+			templateUrl: "/AppClient/Components/Products/ProductEditView.html",
+			controller: "ProductEditController"
 		})
 	}
 })();
