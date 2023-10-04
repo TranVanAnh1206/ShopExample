@@ -19,6 +19,7 @@ namespace ShopExample.Services
         IEnumerable<Product> GetAll();
         Task<IEnumerable<Product>> GetAllAsync();
         IEnumerable<Product> GetAll(string keyword);
+        Task<IEnumerable<Product>> GetAllAsync(string keyword);
         Product GetByID(long id);
         IEnumerable<Product> GetAllByCategoryID(long categID);
         void SaveChanged();
@@ -100,6 +101,18 @@ namespace ShopExample.Services
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await _productRepository.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<Product>> GetAllAsync(string keyword)
+        {
+            if (!string.IsNullOrEmpty (keyword))
+            {
+                return _productRepository.GetMulti(x => x.Name.Contains(keyword) || x.Description.Contains(keyword));
+            }
+            else
+            {
+                return await _productRepository.GetAllAsync();
+            }
         }
 
         public IEnumerable<Product> GetAllByCategoryID(long categID)

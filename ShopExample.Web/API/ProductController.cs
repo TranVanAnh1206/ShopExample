@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using ShopExample.Web.Infrastructure.Extensions;
+using System.Web.Script.Serialization;
 
 namespace ShopExample.Web.API
 {
@@ -39,7 +40,7 @@ namespace ShopExample.Web.API
                     var product = _productService.GetByID(id);
 
                     var mapper = AutoMapperConfiguration.Configure();
-                    var responseData = mapper.Map< Product, ProductViewModel>(product);
+                    var responseData = mapper.Map<Product, ProductViewModel>(product);
 
                     response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
                 }
@@ -53,18 +54,32 @@ namespace ShopExample.Web.API
         }
 
         [Route("getall")]
-        public async Task<HttpResponseMessage> GetAll(HttpRequestMessage requestMessage)
+        public async Task<HttpResponseMessage> GetAll(HttpRequestMessage requestMessage, string searchKeyword, int page, int pageSize = 5)
         {
             return await Task.Run(() =>
             {
                 return CreatedHttpResponseAsync(requestMessage, async () =>
                 {
-                    var list = await _productService.GetAllAsync();
+                    var list = await _productService.GetAllAsync(searchKeyword);
+
+                    var query = list.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
 
                     var mapper = AutoMapperConfiguration.Configure();
-                    var responseData = mapper.Map<List<ProductViewModel>>(list);
+                    var responseData = mapper.Map<List<ProductViewModel>>(query);
 
-                    var response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+
+                    int totalRow = list.Count();
+
+                    var pagination = new PaginationSet<ProductViewModel>()
+                    {
+                        Items = responseData,
+                        TotalCount = totalRow,
+                        TotalPage = (int) Math.Ceiling((double) totalRow / (double) pageSize),
+                        Page = page
+
+                    };
+
+                    var response = requestMessage.CreateResponse(HttpStatusCode.OK, pagination);
 
                     return response;
                 });
@@ -156,6 +171,38 @@ namespace ShopExample.Web.API
 
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+                }
+
+                return response;
+            });
+        }
+
+        [HttpDelete]
+        [Route("deleteMultiple")]
+        public HttpResponseMessage Delete(HttpRequestMessage requestMessage, string productCheckedJSON)
+        {
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage response = null;
+
+                try
+                {
+                    var listProduct = new JavaScriptSerializer().Deserialize<List<Product>>(productCheckedJSON);
+
+                    foreach (var item in listProduct)
+                    {
+                        _productService.Delete(item.ID);
+                    }
+
+                    _productService.SaveChanged();
+
+                    response = requestMessage.CreateResponse(HttpStatusCode.OK, listProduct.Count());
+
+
                 }
                 catch (Exception ex)
                 {

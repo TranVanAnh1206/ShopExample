@@ -65,13 +65,13 @@ namespace ShopExample.Web.API
 
         [Route("getall")]
         [HttpGet]
-        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage, string keyword, int page = 1, int pageSize = 20)
+        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage, string keyword, int page = 0, int pageSize = 20)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
                 var listPC = _productCategoryService.GetAll(keyword);
                 int totalRow = listPC.Count();
-                var query = listPC.OrderByDescending(x => x.CreatedDate).Skip((page - 1) * pageSize).Take(pageSize);
+                var query = listPC.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize); 
 
                 var mapper = AutoMapperConfiguration.Configure();
                 var responseData = mapper.Map<List<ProductCategoryViewModel>>(query);

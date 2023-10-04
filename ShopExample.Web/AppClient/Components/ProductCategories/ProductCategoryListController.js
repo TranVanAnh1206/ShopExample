@@ -24,13 +24,13 @@
 
         // Hàm xử lý get ra tất cả bản ghi
         function GetListProductCategory(page) {
-            page = page || 1
+            page = page || 0
 
             var config = {
                 params: {
                     keyword: $scope.keyword,
                     page: page,
-                    pageSize: 20
+                    pageSize: 2
                 }
             }
 
@@ -38,13 +38,14 @@
                 if (result.data.TotalCount === 0) {
                     notificationService.displayWarning('Không tìm thấy danh mục sản phẩm nào.')
                 } else {
-                    notificationService.displaySuccess('Đã tìm thấy ' + result.data.TotalCount + ' danh mục sản phẩm.')
+                    //notificationService.displaySuccess('Đã tìm thấy ' + result.data.TotalCount + ' danh mục sản phẩm.')
+                    $scope.productCategories = result.data.Items
+                    $scope.page = result.data.Page
+                    $scope.pagesCount = result.data.TotalPage
+                    $scope.totalCount = result.data.TotalCount
                 }
 
-                $scope.productCategories = result.data.Items
-                $scope.page = result.data.Page
-                $scope.pagesCount = result.data.TotalPage
-                $scope.totalCount = result.data.TotalCount
+                
             }, function (error) {
                 console.log('failed load product category')
             })
