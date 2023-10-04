@@ -45,7 +45,7 @@
                     $scope.totalCount = result.data.TotalCount
                 }
 
-                
+
             }, function (error) {
                 console.log('failed load product category')
             })
@@ -53,20 +53,21 @@
 
         // Hàm xử lý chỉ xóa một bản ghi
         function DeleteProductCategory(id) {
-            $ngBootbox.confirm('Bạn có chắc muốn xóa.').then(function () {
-                var config = {
-                    params: {
-                        id: id
+            $ngBootbox.confirm('Bạn có chắc muốn xóa.')
+                .then(function () {
+                    var config = {
+                        params: {
+                            id: id
+                        }
                     }
-                }
 
-                ApiService.del('/api/productcategory/delete', config, function (result) {
-                    notificationService.displaySuccess('Xóa thành công.')
-                    Search()
-                }, function (error) {
-                    notificationService.displayError('Xóa không thành công, có lỗi phát sinh')
+                    ApiService.del('/api/productcategory/delete', config, function (result) {
+                        notificationService.displaySuccess('Xóa thành công.')
+                        Search()
+                    }, function (error) {
+                        notificationService.displayError('Xóa không thành công, có lỗi phát sinh')
+                    })
                 })
-            })
         }
 
         // Hàm select một product category
