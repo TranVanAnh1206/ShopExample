@@ -15,6 +15,7 @@ using ShopExample.Web.Infrastructure.Extensions;
 namespace ShopExample.Web.API
 {
 
+    [Authorize]
     [RoutePrefix("api/postcategory")]
     public class PostCategoryController : API_BaseController
     {
@@ -26,6 +27,7 @@ namespace ShopExample.Web.API
         }
 
         [Route("getall")]
+        [HttpGet]
         public HttpResponseMessage Get(HttpRequestMessage requestMessage)
         {
             return CreatedHttpResponse(requestMessage, () =>
@@ -44,6 +46,7 @@ namespace ShopExample.Web.API
 
         // GET api/<controller>
         [Route("add")]
+        [HttpPost]
         public HttpResponseMessage Post(HttpRequestMessage requestMessage, PostCategoryViewModel postCategoryVM)
         {
             return CreatedHttpResponse(requestMessage, () =>
@@ -58,6 +61,8 @@ namespace ShopExample.Web.API
                 {
                     PostCategory postCategory = new PostCategory();
                     postCategory.UpdatePostCategory(postCategoryVM);
+                    postCategory.CreatedDate = DateTime.Now;
+                    postCategory.CreatedBy = User.Identity.Name;
 
                     var category = _postCategoryService.Add(postCategory);
                     _postCategoryService.SaveChanged();
@@ -71,6 +76,7 @@ namespace ShopExample.Web.API
 
         // PUT api/<controller>/5
         [Route("update")]
+        [HttpPut]
         public HttpResponseMessage Put(HttpRequestMessage requestMessage, PostCategoryViewModel postCategoryVM)
         {
             return CreatedHttpResponse(requestMessage, () =>
@@ -85,6 +91,9 @@ namespace ShopExample.Web.API
                 {
                     var postCategoryDb = _postCategoryService.GetById(postCategoryVM.ID);
                     postCategoryDb.UpdatePostCategory(postCategoryVM);
+                    postCategoryDb.ModifiedDate = DateTime.Now;
+                    postCategoryDb.ModifiedBy = User.Identity.Name;
+
                     _postCategoryService.Update(postCategoryDb);
                     _postCategoryService.SaveChanged();
 
@@ -97,6 +106,7 @@ namespace ShopExample.Web.API
 
         // DELETE api/<controller>/5
         [Route("delete")]
+        [HttpDelete]
         public HttpResponseMessage Delete(HttpRequestMessage requestMessage, long id)
         {
             return CreatedHttpResponse(requestMessage, () =>

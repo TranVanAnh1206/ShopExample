@@ -202,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\AccountController.cs" />
+    <Compile Include="API\HomeController.cs" />
     <Compile Include="API\PostCategoryController.cs" />
     <Compile Include="API\ProductCategoryController.cs" />
     <Compile Include="API\ProductController.cs" />
@@ -255,7 +256,10 @@
     <Content Include="AppClient\Shared\Directives\PagerDirective.js" />
     <Content Include="AppClient\Shared\Filter\Fillter.js" />
     <Content Include="AppClient\Shared\Service\ApiService.js" />
+    <Content Include="AppClient\Shared\Service\AuthData.js" />
+    <Content Include="AppClient\Shared\Service\AuthenticationService.js" />
     <Content Include="AppClient\Shared\Service\CommonService.js" />
+    <Content Include="AppClient\Shared\Service\LoginService.js" />
     <Content Include="AppClient\Shared\Service\NotificationService.js" />
     <Content Include="AppClient\Shared\Views\BaseView.html" />
     <Content Include="Assets\Admin\Css\adminlte.css" />
@@ -2367,6 +2371,12 @@
     <Content Include="Assets\Admin\Js\pages\dashboard.js" />
     <Content Include="Assets\Admin\Js\pages\dashboard2.js" />
     <Content Include="Assets\Admin\Js\pages\dashboard3.js" />
+    <Content Include="Assets\Admin\Libs\AngularLoadingBar\loading-bar.css" />
+    <Content Include="Assets\Admin\Libs\AngularLoadingBar\loading-bar.js" />
+    <Content Include="Assets\Admin\Libs\AngularLoadingBar\loading-bar.min.css" />
+    <Content Include="Assets\Admin\Libs\AngularLoadingBar\loading-bar.min.js" />
+    <Content Include="Assets\Admin\Libs\AngularlocalStorage\angular-local-storage.js" />
+    <Content Include="Assets\Admin\Libs\AngularlocalStorage\angular-local-storage.min.js" />
     <Content Include="Assets\Admin\Libs\Angular\angular-csp.css" />
     <Content Include="Assets\Admin\Libs\Angular\angular-csp.min.css" />
     <Content Include="Assets\Admin\Libs\Angular\angular-ui-router.js" />

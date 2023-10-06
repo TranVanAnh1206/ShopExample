@@ -21,6 +21,14 @@
     {
       "library": "ng-ckeditor@0.2.1",
       "destination": "Assets/Admin/Libs/ngCKEditor/"
+    },
+    {
+      "library": "angular-local-storage@0.7.1",
+      "destination": "Assets/Admin/Libs/AngularlocalStorage/"
+    },
+    {
+      "library": "angular-loading-bar@0.9.0",
+      "destination": "Assets/Admin/Libs/AngularLoadingBar/"
     }
   ]
 }

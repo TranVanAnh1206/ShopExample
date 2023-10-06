@@ -17,6 +17,7 @@ using System.Web.Script.Serialization;
 
 namespace ShopExample.Web.API
 {
+    [Authorize]
     [RoutePrefix("api/productcategory")]
     public class ProductCategoryController : API_BaseController
     {
@@ -108,7 +109,7 @@ namespace ShopExample.Web.API
                     var newProductCateg = new ProductCategory();
                     newProductCateg.UpdateProductCategory(pcVM);
                     newProductCateg.CreatedDate = DateTime.Now;
-                    newProductCateg.CreatedBy = "";
+                    newProductCateg.CreatedBy = User.Identity.Name;
 
                     _productCategoryService.Add(newProductCateg);
                     _productCategoryService.SaveChanged();
@@ -140,7 +141,7 @@ namespace ShopExample.Web.API
                     var dbProductCategory = _productCategoryService.GetById(pcVM.ID);
                     dbProductCategory.UpdateProductCategory(pcVM);
                     dbProductCategory.ModifiedDate = DateTime.Now;
-                    dbProductCategory.ModifiedBy = "";
+                    dbProductCategory.ModifiedBy = User.Identity.Name;
 
                     _productCategoryService.Update(dbProductCategory);
                     _productCategoryService.SaveChanged(); 

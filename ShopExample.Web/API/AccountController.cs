@@ -8,8 +8,8 @@ using System.Web.Http;
 
 namespace ShopExample.Web.API
 {
-    [RoutePrefix("api/account")]
     [Authorize]
+    [RoutePrefix("api/account")]
     public class AccountController : ApiController
     {
         private ApplicationSignInManager _signInManager;
@@ -63,6 +63,16 @@ namespace ShopExample.Web.API
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(email, passwword, rememberMe, shouldLockout: false);
             return requestMessage.CreateResponse(HttpStatusCode.OK, result);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("logout")]
+        public HttpResponseMessage Logout(HttpRequestMessage request)
+        {
+            var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return request.CreateResponse(HttpStatusCode.OK, new { success = true });
         }
     }
 }
