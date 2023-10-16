@@ -24,6 +24,7 @@
                     .then(function (response) {
                         userInfo = {
                             accessToken: response.data.access_token,
+                            IsAuthenticated: true,
                             userName: userName
                         };
 

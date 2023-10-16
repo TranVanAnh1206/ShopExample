@@ -17,6 +17,8 @@
 
         $scope.authentication = authData.authenticationData
 
+        console.log(authData.authenticationData)
+
         //authenticationService.validateRequest()
     }
 })(angular.module('shopexample'))
