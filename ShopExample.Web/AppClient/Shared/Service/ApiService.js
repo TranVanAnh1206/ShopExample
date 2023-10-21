@@ -74,9 +74,11 @@
             $http.get(url, params)
                 .then(
                     function (result) {
+                        console.log(result)
                         success(result)
                     },
                     function (error) {
+                        console.log(error)
                         failure(error)
                     })
         }

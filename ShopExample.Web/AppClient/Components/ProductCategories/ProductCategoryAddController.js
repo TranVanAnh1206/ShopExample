@@ -25,7 +25,7 @@
                 notificationService.displaySuccess(result.data.Name + ' đã được thêm mới.')
                 $state.go('products_category') 
             }, (error) => {
-                notificationService.displayError('Thêm mới không thành công.')
+                notificationService.displayError('Add new product category unsuccessful.')
             })
         }
 
@@ -33,7 +33,7 @@
             ApiService.get('api/productcategory/getallparent', null, (result) => {
                 $scope.parentCategories = result.data
             }, (error) => {
-                console.log('Cannot get parent ...')
+                notificationService.displayError('Cannot get parent category...')
             })
         }
 

@@ -4,7 +4,12 @@
 
 
 (function () {
-	angular.module('shopexample.common', ['ui.router', 'ngBootbox', 'ngCkeditor'])
+    angular.module('shopexample.common',
+        ['ui.router',
+         'ngBootbox',
+         'ngCkeditor',
+         'LocalStorageModule'
+        ])
 
 
 })();

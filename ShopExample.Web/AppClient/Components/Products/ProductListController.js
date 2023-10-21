@@ -24,7 +24,7 @@
                 params: {
                     searchKeyword: $scope.keyword,
                     page: page,
-                    pageSize: 5,
+                    pageSize: 20,
                 }
             }
 
@@ -38,6 +38,7 @@
                     $scope.totalCount = result.data.TotalCount
                 }
             }, function (error) {
+                console.log(error.data)
                 notificationService.displayError('Failed to get product list ...')
             })
         }

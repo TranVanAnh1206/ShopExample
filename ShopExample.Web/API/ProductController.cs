@@ -17,8 +17,8 @@ using System.Web.Script.Serialization;
 
 namespace ShopExample.Web.API
 {
-    [Authorize]
     [RoutePrefix("api/product")]
+    [Authorize]
     public class ProductController : API_BaseController
     {
         IProductService _productService;
@@ -55,7 +55,7 @@ namespace ShopExample.Web.API
         }
 
         [Route("getall")]
-        public async Task<HttpResponseMessage> GetAll(HttpRequestMessage requestMessage, string searchKeyword, int page, int pageSize = 5)
+        public async Task<HttpResponseMessage> GetAll(HttpRequestMessage requestMessage, string searchKeyword, int page, int pageSize = 20)
         {
             return await Task.Run(() =>
             {
@@ -66,7 +66,7 @@ namespace ShopExample.Web.API
                     var query = list.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
 
                     var mapper = AutoMapperConfiguration.Configure();
-                    var responseData = mapper.Map<List<ProductViewModel>>(query);
+                    var responseData = mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(query.AsEnumerable());
 
 
                     int totalRow = list.Count();
