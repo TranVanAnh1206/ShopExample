@@ -17,8 +17,8 @@ using System.Web.Script.Serialization;
 
 namespace ShopExample.Web.API
 {
-    [RoutePrefix("api/product")]
     [Authorize]
+    [RoutePrefix("api/product")]
     public class ProductController : API_BaseController
     {
         IProductService _productService;
@@ -54,8 +54,17 @@ namespace ShopExample.Web.API
             });
         }
 
-        [Route("getall")]
-        public async Task<HttpResponseMessage> GetAll(HttpRequestMessage requestMessage, string searchKeyword, int page, int pageSize = 20)
+        /// <summary>
+        /// Hàm get all product async
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <param name="searchKeyword"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Route("getallasync")]
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetAllAsync(HttpRequestMessage requestMessage, string searchKeyword, int page = 0, int pageSize = 20)
         {
             return await Task.Run(() =>
             {
@@ -87,7 +96,48 @@ namespace ShopExample.Web.API
             });
         }
 
+        /// <summary>
+        /// Hàm Get all product
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <param name="searchKeyword"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        [Route("getall")]
+        [HttpGet]
+        [AllowAnonymous]
+        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage, string searchKeyword, int page, int pageSize = 20)
+        {
+                return CreatedHttpResponse(requestMessage, () =>
+                {
+                    var list = _productService.GetAll(searchKeyword);
+
+                    var query = list.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
+
+                    var mapper = AutoMapperConfiguration.Configure();
+                    var responseData = mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(query.AsEnumerable());
+
+
+                    int totalRow = list.Count();
+
+                    var pagination = new PaginationSet<ProductViewModel>()
+                    {
+                        Items = responseData,
+                        TotalCount = totalRow,
+                        TotalPage = (int)Math.Ceiling((double)totalRow / (double)pageSize),
+                        Page = page
+
+                    };
+
+                    var response = requestMessage.CreateResponse(HttpStatusCode.OK, pagination);
+
+                    return response;
+                });
+        }
+
         [Route("addnew")]
+        [HttpPost]
         public HttpResponseMessage Add(HttpRequestMessage requestMessage, ProductViewModel pvm)
         {
             return CreatedHttpResponse(requestMessage, () =>

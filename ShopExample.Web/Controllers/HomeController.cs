@@ -13,14 +13,17 @@ namespace ShopExample.Web.Controllers
     public class HomeController : Controller
     {
         IProductCategoryService _productCategoryService;
+        IFooterService _footerService;
 
-        public HomeController(IProductCategoryService productCategoryService)
+        public HomeController(IProductCategoryService productCategoryService, IFooterService footerService)
         {
             _productCategoryService = productCategoryService;
+            _footerService = footerService;
         }
 
         public ActionResult Index()
         {
+            
             return View();
         }
 
@@ -33,7 +36,10 @@ namespace ShopExample.Web.Controllers
         [ChildActionOnly]
         public ActionResult Footer()
         {
-            return PartialView();
+            var footerModel = _footerService.GetFooter();
+            var mapper = AutoMapperConfiguration.Configure();
+            var footerViewModel = mapper.Map<Footer, FooterViewModel>(footerModel);
+            return PartialView(footerViewModel);
         }
 
         [ChildActionOnly]

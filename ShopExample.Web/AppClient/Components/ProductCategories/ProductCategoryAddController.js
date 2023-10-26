@@ -21,7 +21,7 @@
 
         function AddproductCategory() {
 
-            ApiService.post('api/productcategory/create', $scope.productCategory, (result) => {
+            ApiService.post('/api/productcategory/create', $scope.productCategory, (result) => {
                 notificationService.displaySuccess(result.data.Name + ' đã được thêm mới.')
                 $state.go('products_category') 
             }, (error) => {
@@ -30,7 +30,7 @@
         }
 
         function GetParentCategory() {
-            ApiService.get('api/productcategory/getallparent', null, (result) => {
+            ApiService.get('/api/productcategory/getallparent', null, (result) => {
                 $scope.parentCategories = result.data
             }, (error) => {
                 notificationService.displayError('Cannot get parent category...')

@@ -10,5 +10,6 @@ namespace ShopExample.Common.Common
     {
         public const string productTag = "product";
         public const string postTag = "post";
+        public const string MainFooterID = "default";
     }
 }

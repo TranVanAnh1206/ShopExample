@@ -7,6 +7,8 @@
     ApiService.$inject = ['$http', 'notificationService', 'authenticationService']
 
     function ApiService($http, notificationService, authenticationService) {
+        var baseUrl = 'https://localhost:44398/'
+
         return {
             get: get,
             post: post,
@@ -71,14 +73,12 @@
 
         function get(url, params, success, failure) {
             authenticationService.setHeader()
-            $http.get(url, params)
+            $http.get(baseUrl + url, params)
                 .then(
                     function (result) {
-                        console.log(result)
                         success(result)
                     },
                     function (error) {
-                        console.log(error)
                         failure(error)
                     })
         }

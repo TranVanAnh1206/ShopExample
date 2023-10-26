@@ -20,7 +20,7 @@
         }
 
         function loadProductcategoryDetail() {
-            ApiService.get('api/productcategory/getbyid/' + $stateParams.id, null,
+            ApiService.get('/api/productcategory/getbyid/' + $stateParams.id, null,
                 function (result) {
                     $scope.productCategory = result.data
                 },
@@ -31,7 +31,7 @@
         }        
 
         function GetParentCategory() {
-            ApiService.get('api/productcategory/getallparent', null,
+            ApiService.get('/api/productcategory/getallparent', null,
                 (result) => {
                     $scope.parentCategories = result.data
                 },
@@ -42,7 +42,7 @@
         }
 
         function UpdateProductCategory() {
-            ApiService.put('api/productcategory/update', $scope.productCategory,
+            ApiService.put('/api/productcategory/update', $scope.productCategory,
                 function (result) {
                     console.log($scope.productCategory, result.data)
 

@@ -116,7 +116,7 @@
                 }
             }
 
-            ApiService.del('api/productcategory/deletemulti', config, function (result) {
+            ApiService.del('/api/productcategory/deletemulti', config, function (result) {
                 notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi.')
                 Search()
             }, function (error) {

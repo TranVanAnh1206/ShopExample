@@ -34,7 +34,7 @@
         }
 
         function LoadProdcutDetail() {
-            ApiService.get('api/product/getbyid/' + $stateParams.id, null,
+            ApiService.get('/api/product/getbyid/' + $stateParams.id, null,
                 function (result) {
                     $scope.product = result.data
                     $scope.moreImgList = JSON.parse($scope.product.MoreImage)
@@ -44,7 +44,7 @@
         }
 
         function GetProductCategory() {
-            ApiService.get('api/productcategory/getallparent', null,
+            ApiService.get('/api/productcategory/getallparent', null,
                 function (result) {
                     $scope.productCategories = result.data
                 }, function (error) {
@@ -54,7 +54,7 @@
 
         function UpdateProduct() {
             $scope.product.MoreImage = JSON.stringify($scope.moreImgList)
-            ApiService.put('api/product/update', $scope.product, function (result) {
+            ApiService.put('/api/product/update', $scope.product, function (result) {
                 notificationService.displaySuccess('Update success ...')
                 $state.go('products')
             }, function (error) {

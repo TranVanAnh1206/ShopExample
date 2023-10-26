@@ -3,7 +3,7 @@ using ShopExample.Model.Model;
 
 namespace ShopExample.Data.Repositories
 {
-    interface IFooterRepository : IRepository<Footer>
+    public interface IFooterRepository : IRepository<Footer>
     {
 
     }

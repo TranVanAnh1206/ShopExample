@@ -10,6 +10,7 @@ using ShopExample.Data.Infrastructure;
 using ShopExample.Data.Repositories;
 using ShopExample.Model.Model;
 using ShopExample.Services;
+using ShopExample.Web.API;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;

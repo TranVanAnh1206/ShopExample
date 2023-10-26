@@ -6,6 +6,8 @@
 
     function ProductListController($scope, ApiService, notificationService, $filter) {
 
+        var baseUrl = 'https://localhost:44398'
+
         $scope.productList = []
         $scope.keyword = ''
         $scope.totalCount = 0
@@ -28,7 +30,7 @@
                 }
             }
 
-            ApiService.get('api/product/getall', config, function (result) {
+            ApiService.get('/api/product/getallasync', config, function (result) {
                 if (result.data.TotalCount === 0) {
                     notificationService.displayError('Product not found ...')
                 } else {
@@ -38,7 +40,6 @@
                     $scope.totalCount = result.data.TotalCount
                 }
             }, function (error) {
-                console.log(error.data)
                 notificationService.displayError('Failed to get product list ...')
             })
         }
@@ -78,7 +79,7 @@
                 }
             }
 
-            ApiService.del('api/product/deleteMultiple', config, function (result) {
+            ApiService.del('/api/product/deleteMultiple', config, function (result) {
                 notificationService.displaySuccess('deleted ' + result.data + ' product ...')
                
             }, function (error) {

@@ -42,8 +42,25 @@
 
             //manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
 
-            CreateProductCategorySample(context);
-            CreateProductSample(context);
+            //CreateProductCategorySample(context);
+            //CreateProductSample(context);
+            CreateFooterSample(context);
+        }
+
+        private void CreateFooterSample(ShopExampleDBContext context)
+        {
+            if (context.Footers.Count(x => x.ID == "default") == 0)
+            {
+                Footer footer = new Footer()
+                {
+                    ID = "default",
+                    Name = "defaultFooter",
+                    Contents = "<div class=\"latter\">\r\n    <h6>Đăng ký nhận tin</h6>\r\n    <div class=\"sub-left-right\">\r\n        <form>\r\n            <input type=\"text\" placeholder=\"Nhập email tại đây\" />\r\n            <input type=\"submit\" value=\"Gửi\" />\r\n        </form>\r\n    </div>\r\n    <div class=\"clearfix\"> </div>\r\n</div>\r\n\r\n<div class=\"latter-right\">\r\n    <p>Theo dõi chúng tôi</p>\r\n    <ul class=\"face-in-to\">\r\n        <li><a href=\"#\"><span> </span></a></li>\r\n        <li><a href=\"#\"><span class=\"facebook-in\"> </span></a></li>\r\n        <li class=\"clearfix\"> </li>\r\n    </ul>\r\n    <div class=\"clearfix\"> </div>\r\n</div>\r\n<div class=\"clearfix\"> </div>",
+                };
+
+                context.Footers.Add(footer);
+                context.SaveChanges();
+            }
         }
 
         private void CreateProductCategorySample(ShopExampleDBContext context)

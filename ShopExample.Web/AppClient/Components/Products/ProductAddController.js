@@ -28,7 +28,7 @@
         }
 
         function GetProductCategory() {
-            ApiService.get('api/productcategory/getallparent', null, (result) => {
+            ApiService.get('/api/productcategory/getallparent', null, (result) => {
                 $scope.categories = result.data
             }, (error) => {
                 notificationService.displayError('Can not get product category....')
@@ -37,7 +37,7 @@
 
         function AddProduct() {
             $scope.product.MoreImage = JSON.stringify($scope.moreImgList)
-            ApiService.post('api/product/addnew', $scope.product, function (result) {
+            ApiService.post('/api/product/addnew', $scope.product, function (result) {
                 notificationService.displaySuccess('Successfully created a new product.')
                 $state.go('products')
             }, function (error) {

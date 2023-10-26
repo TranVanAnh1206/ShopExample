@@ -23,6 +23,7 @@ namespace ShopExample.Web.Mapping
                 cfg.CreateMap<Product, ProductViewModel>();
                 cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
                 cfg.CreateMap<ProductTag, ProductTagViewModel>();
+                cfg.CreateMap<Footer, FooterViewModel>();
             });
 
             var mapper = new Mapper(config);

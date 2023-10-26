@@ -47,6 +47,7 @@ namespace ShopExample.Web.API
 
         [Route("getallparent")]
         [HttpGet]
+        [AllowAnonymous]
         public HttpResponseMessage GetAll(HttpRequestMessage requestMessage)
         {
             return CreatedHttpResponse(requestMessage, () =>
@@ -66,6 +67,7 @@ namespace ShopExample.Web.API
 
         [Route("getall")]
         [HttpGet]
+        [AllowAnonymous]
         public HttpResponseMessage GetAll(HttpRequestMessage requestMessage, string keyword, int page = 0, int pageSize = 20)
         {
             return CreatedHttpResponse(requestMessage, () =>
