@@ -19,18 +19,19 @@ namespace ShopExample.Web.API
 {
     [Authorize]
     [RoutePrefix("api/productcategory")]
-    public class ProductCategoryController : API_BaseController
+    public class ProductCategoryController : BaseAPIController
     {
         IProductCategoryService _productCategoryService;
 
-        public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService) : base(errorService)
+        public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService)
+            : base(errorService)
         {
             this._productCategoryService = productCategoryService;
         }
 
         [Route("getbyid/{id:long}")]
         [HttpGet]
-        public HttpResponseMessage GetByID(HttpRequestMessage requestMessage, long id)
+        public HttpResponseMessage GetByID(HttpRequestMessage requestMessage, Guid id)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
@@ -65,6 +66,24 @@ namespace ShopExample.Web.API
             });
         }
 
+        [Route("GetWithUse")]
+        [HttpGet]
+        [AllowAnonymous]
+        public HttpResponseMessage GetWithUse(HttpRequestMessage requestMessage)
+        {
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                var list_Category = _productCategoryService.GetMany(2);
+
+                var mapper = AutoMapperConfiguration.Configure();
+                var responseData = mapper.Map<List<ProductCategoryViewModel>>(list_Category);
+
+                var response = requestMessage.CreateResponse(HttpStatusCode.OK, responseData);
+
+                return response;
+            });
+        }
+
         [Route("getall")]
         [HttpGet]
         [AllowAnonymous]
@@ -72,9 +91,19 @@ namespace ShopExample.Web.API
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
+
+                List<Guid> ids = new List<Guid>();
+
+                for (int i = 0; i < 18; i++)
+                {
+                    var item = Guid.NewGuid();
+                    ids.Add(item);
+                }
+
+
                 var listPC = _productCategoryService.GetAll(keyword);
                 int totalRow = listPC.Count();
-                var query = listPC.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize); 
+                var query = listPC.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
 
                 var mapper = AutoMapperConfiguration.Configure();
                 var responseData = mapper.Map<List<ProductCategoryViewModel>>(query);
@@ -96,7 +125,7 @@ namespace ShopExample.Web.API
         [Route("create")]
         [HttpPost]
         [AllowAnonymous]
-        public HttpResponseMessage Add (HttpRequestMessage requestMessage, ProductCategoryViewModel pcVM)
+        public HttpResponseMessage Add(HttpRequestMessage requestMessage, ProductCategoryViewModel pcVM)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
@@ -146,7 +175,7 @@ namespace ShopExample.Web.API
                     dbProductCategory.ModifiedBy = User.Identity.Name;
 
                     _productCategoryService.Update(dbProductCategory);
-                    _productCategoryService.SaveChanged(); 
+                    _productCategoryService.SaveChanged();
 
                     var mapper = AutoMapperConfiguration.Configure();
                     var responseData = mapper.Map<ProductCategory, ProductCategoryViewModel>(dbProductCategory);
@@ -161,7 +190,7 @@ namespace ShopExample.Web.API
         [Route("delete")]
         [HttpDelete]
         [AllowAnonymous]
-        public HttpResponseMessage Delete (HttpRequestMessage requestMessage, int id)
+        public HttpResponseMessage Delete(HttpRequestMessage requestMessage, Guid id)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
@@ -190,7 +219,7 @@ namespace ShopExample.Web.API
         [HttpDelete]
         [Route("deletemulti")]
         [AllowAnonymous]
-        public HttpResponseMessage DeleteMulti (HttpRequestMessage requestMessage, string checkedProductCategoryJson)
+        public HttpResponseMessage DeleteMulti(HttpRequestMessage requestMessage, string checkedProductCategoryJson)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {

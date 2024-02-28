@@ -1,0 +1,124 @@
+﻿tabler > thead > th {
+    align-items: center;
+}
+
+
+.select-item {
+    background-color: #9fcbe875;
+}
+
+.nav-item .nav-treeview .nav-item a {
+    padding-left: 30px;
+}
+
+.nav-link {
+    color: #c2c7d0;
+}
+
+.pagerDirective .active {
+    padding: 0.25rem 0.5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.header-width {
+    max-width: -webkit-fill-available;
+    width: 100%;
+}
+
+.z-2 {
+    z-index: 80;
+}
+
+.z-3 {
+    z-index: 100;
+}
+
+.mt-6, .my-6 {
+    margin-top: 4rem !important;
+}
+
+.mt-7, .my-7 {
+    margin-top: 5rem !important;
+}
+
+.mt-8, .my-8 {
+    margin-top: 6rem !important;
+}
+
+.mt-9, .my-9 {
+    margin-top: 7rem !important;
+}
+
+.mt-10, .my-10 {
+    margin-top: 8rem !important;
+}
+
+
+.pt-6, .py-6 {
+    padding-top: 4rem !important;
+}
+
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    margin-left: 0px;
+}
+
+/*@media (min-width: 768px)  {
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper, 
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer, 
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+        margin-left: 0px;
+    }
+}*/
+
+.logout {
+    position: fixed;
+    bottom: 0em;
+    left: 0,5em;
+    z-index: 1;
+    background-color: #343a40;
+    height: 50px;
+}
+
+.logout-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 1200px) {
+    .container, 
+    .container-lg, 
+    .container-md, 
+    .container-sm, 
+    .container-xl {
+        max-width: 100%;
+    }
+}
+
+.badge-overrise {
+    padding: 0.4em 0.6em;
+    font-size: 1.02em;
+}
+
+.card-tools {
+    display: flex;
+}
+
+.product_name {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #000;
+    line-height: 1.8rem;
+    height: 3.6rem;
+    margin: 0px 10px 6px 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+

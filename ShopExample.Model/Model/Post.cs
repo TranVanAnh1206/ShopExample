@@ -15,39 +15,23 @@ namespace ShopExample.Model.Model
     {
         [Key]
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }
-
+        public Guid ID { get; set; }
         [Required]
         [MaxLength(501)]
         public string Name { get; set; }
-
         [MaxLength(500)]
-        public string Description { get; set; }
-        
+        public string Description { get; set; }        
         public string Contents { get; set; }
-
         [Column(TypeName = "varchar")]
         [MaxLength(500)]
         public string Alias { get; set; }
-
-        public long CategoryID { get; set; }
+        public Guid CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public virtual PostCategory PostCategory { get; set; }
-
-        [Column(TypeName = "varchar")]
-        [MaxLength(256)]
         public string Image { get; set; }
-
-        [DefaultValue(true)]
         public bool HomeFlag { get; set; }
-
-        [DefaultValue(true)]
         public bool HotFlag { get; set; }
-
-        [DefaultValue(0)]
         public int ViewCount { get; set; }
-
         public virtual IEnumerable<PostTag> PostTags { get; set; }
     }
 }

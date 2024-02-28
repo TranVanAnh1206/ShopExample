@@ -7,7 +7,7 @@ namespace ShopExample.Web.Models
 {
     public class ProductTagViewModel
     {
-        public long ProductID { get; set; }
+        public Guid ProductID { get; set; }
 
         public string TagID { get; set; }
 

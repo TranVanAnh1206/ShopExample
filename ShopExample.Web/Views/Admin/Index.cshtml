@@ -13,30 +13,17 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link href="~/Assets/Admin/Css/fontawesome-free-6.3.0-web/css/all.css" rel="stylesheet" />
+    @*<link href="~/Assets/Admin/Css/fontawesome-free-6.3.0-web/css/all.css" rel="stylesheet" />*@
+    <link href="~/Assets/fontawesome-pro-6.5.1-web/css/all.min.css" rel="stylesheet" />
+
     <!-- Toastr -->
     <link href="~/Assets/Admin/Libs/Toastr/toastr.css" rel="stylesheet" />
     <link href="~/Assets/Admin/Libs/AngularLoadingBar/loading-bar.css" rel="stylesheet" />
     <!-- Theme style -->
     <link href="~/Assets/Admin/Css/adminlte.min.css" rel="stylesheet" />
+    <link href="~/Assets/Admin/Css/custom.css" rel="stylesheet" />
 
-    <style>
-        .nav-item .nav-treeview .nav-item a {
-            padding-left: 30px;
-        }
-
-        .nav-link {
-            color: #c2c7d0;
-        }
-
-        .pagerDirective .active {
-            padding: 0.25rem 0.5rem;
-            font-size: .875rem;
-            line-height: 1.5;
-            background-color: #007BFF;
-            color: #fff;
-        }
-    </style>
+    <base href="/admin">
 </head>
 <body class="hold-transition sidebar-mini" ng-app="shopexample" ng-controller="rootController">
     <div ui-view></div>
@@ -44,6 +31,8 @@
     <!-- jQuery -->
     @*<script src="../../plugins/jquery/jquery.min.js"></script> <!-- Cũ -->*@
     <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="~/Assets/fontawesome-pro-6.5.1-web/js/all.min.js"></script>
     <!-- Bootstrap 4 -->
     <!--<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>--> <!-- Cũ -->
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
@@ -54,6 +43,7 @@
 
     <script src="~/Assets/Admin/Libs/Angular/angular.js"></script>
     <script src="~/Assets/Admin/Libs/Angular/angular-ui-router.js"></script>
+
     <script src="~/Assets/Admin/Libs/Toastr/toastr.min.js"></script>
     <script src="~/Assets/Admin/Libs/bootbox/bootbox.js"></script>
     <script src="~/Assets/Admin/Libs/CKEditor/ckeditor.js"></script>
@@ -62,10 +52,12 @@
     <script src="~/Assets/Admin/Libs/ngCKEditor/ng-ckeditor.js"></script>
     <script src="~/Assets/Admin/Libs/AngularLoadingBar/loading-bar.js"></script>
     <script src="~/Assets/Admin/Libs/AngularlocalStorage/angular-local-storage.js"></script>
+    <script src="~/Assets/Admin/Libs/AngularMessage/angular-messages.min.js"></script>
 
     <script src="~/AppClient/Shared/Modules/ShopExample.Common.js"></script>
     <script src="~/AppClient/Components/Products/Products.module.js"></script>
     <script src="~/AppClient/Components/ProductCategories/ProductCategory.module.js"></script>
+    <script src="~/AppClient/Components/PostCategories/PostCategories.module.js"></script>
     <script src="~/AppClient/App.js"></script>
     <script src="~/AppClient/Components/Home/RootController.js"></script>
 
@@ -75,7 +67,6 @@
     <script src="~/AppClient/Shared/Service/AuthData.js"></script>
     <script src="~/AppClient/Shared/Service/AuthenticationService.js"></script>
     <script src="~/AppClient/Shared/Service/LoginService.js"></script>
-
     <script src="~/AppClient/Shared/Directives/PagerDirective.js"></script>
 
     <script src="~/AppClient/Components/Products/ProductAddController.js"></script>
@@ -84,10 +75,9 @@
     <script src="~/AppClient/Components/ProductCategories/ProductCategoryListController.js"></script>
     <script src="~/AppClient/Components/ProductCategories/ProductCategoryAddController.js"></script>
     <script src="~/AppClient/Components/ProductCategories/ProductCategoryUpdateController.js"></script>
+    <script src="~/AppClient/Components/PostCategories/PostCategoryListController.js"></script>
     <script src="~/AppClient/Components/Home/HomeController.js"></script>
-
     <script src="~/AppClient/Components/Logins/LoginController.js"></script>
-
     <script src="~/AppClient/Shared/Filter/Fillter.js"></script>
 </body>
 </html>

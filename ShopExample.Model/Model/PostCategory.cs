@@ -15,31 +15,18 @@ namespace ShopExample.Model.Model
     {
         [Key]
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }
-
+        public Guid ID { get; set; }
         [Required]
         [MaxLength(501)]
         public string Name { get; set; }
-
         [MaxLength(500)]
         public string Description { get; set; }
-
-        [Column(TypeName = "varchar")]
         [MaxLength(500)]
         public string Alias { get; set; }
-
-        public int? ParentID { get; set; }
-
-        [Column(TypeName = "varchar")]
-        [MaxLength(256)]
+        public Guid? ParentID { get; set; }
         public string Image { get; set; }
-
         public int? DisplayOrder { get; set; }
-
-        [DefaultValue(true)]
         public bool HomeFlag { get; set; }
-
         public virtual IEnumerable<Post> Post { get; set; }
 
     }

@@ -28,9 +28,9 @@ namespace ShopExample.UnitTests.ServiceTest
             _postCategoryService = new PostCategoryService(_mockRepository.Object, _mockUnitOfWork.Object);
             _listCategory = new List<PostCategory>()
             {
-                new PostCategory() {ID =1 ,Name="DM1",Status=true },
-                new PostCategory() {ID =2 ,Name="DM2",Status=true },
-                new PostCategory() {ID =3 ,Name="DM3",Status=true },
+                new PostCategory() {ID =Guid.NewGuid() ,Name="DM1",Status=1 },
+                new PostCategory() {ID =Guid.NewGuid() ,Name="DM2",Status=1 },
+                new PostCategory() {ID =Guid.NewGuid() ,Name="DM3",Status=1 },
             };
         }
 
@@ -55,18 +55,18 @@ namespace ShopExample.UnitTests.ServiceTest
             PostCategory category = new PostCategory();
             category.Name = "Test";
             category.Alias = "test";
-            category.Status = true;
+            category.Status = 1;
 
             _mockRepository.Setup(m => m.Add(category)).Returns((PostCategory p) =>
             {
-                p.ID = 1;
+                p.ID = Guid.NewGuid();
                 return p;
             });
 
             var result = _postCategoryService.Add(category);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual(1, result.ID);
+            Assert.AreEqual(Guid.NewGuid(), result.ID);
         }
 
     }

@@ -13,12 +13,12 @@ namespace ShopExample.Services
     {
         void Add(Post post);
         void Update(Post post);
-        void Delete(int id);
+        void Delete(Guid id);
         IEnumerable<Post> GetAll();
         IEnumerable<Post> GetAllPaging(out int totalRow, int page, int pageSize );
-        Post GetByID(int id);
+        Post GetByID(Guid id);
         IEnumerable<Post> GetAllTagPaging(out int totalRow, string tag, int page, int pageSize );
-        IEnumerable<Post> GetAllCategoryPaging(out int totalRow, long categoryID, int page, int pageSize );
+        IEnumerable<Post> GetAllCategoryPaging(out int totalRow, Guid categoryID, int page, int pageSize );
         void SaveChanged();
 
     }
@@ -39,7 +39,7 @@ namespace ShopExample.Services
             _postRepository.Add(post);
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             _postRepository.Delete(id);
         }
@@ -49,22 +49,22 @@ namespace ShopExample.Services
             return _postRepository.GetAll(new string[] { "PostCategory" });
         }
 
-        public IEnumerable<Post> GetAllCategoryPaging(out int totalRow, long categoryID, int page, int pageSize)
+        public IEnumerable<Post> GetAllCategoryPaging(out int totalRow, Guid categoryID, int page, int pageSize)
         {
-            return _postRepository.GetMultiPaging(x => x.Status && x.CategoryID == categoryID, out totalRow, page, pageSize);
+            return _postRepository.GetMultiPaging(x => x.Status == 1 && x.CategoryID == categoryID, out totalRow, page, pageSize);
         }
 
         public IEnumerable<Post> GetAllPaging(out int totalRow, int page, int pageSize )
         {
-            return _postRepository.GetMultiPaging(x => x.Status, out totalRow, page, pageSize);
+            return _postRepository.GetMultiPaging(x => x.Status == 1, out totalRow, page, pageSize);
         }
 
         public IEnumerable<Post> GetAllTagPaging(out int totalRow, string tag, int page, int pageSize )
         {
-            return _postRepository.GetMultiPaging(x => x.Status, out totalRow, page, pageSize);
+            return _postRepository.GetMultiPaging(x => x.Status == 1, out totalRow, page, pageSize);
         }
 
-        public Post GetByID(int id)
+        public Post GetByID(Guid id)
         {
             return _postRepository.GetSingleById(id);
         }

@@ -22,8 +22,7 @@ namespace ShopExample.Web.Controllers
         }
 
         public ActionResult Index()
-        {
-            
+        {            
             return View();
         }
 

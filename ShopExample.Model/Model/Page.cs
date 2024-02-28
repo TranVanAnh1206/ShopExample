@@ -1,4 +1,5 @@
 ﻿using ShopExample.Model.Abstract;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,13 +10,10 @@ namespace ShopExample.Model.Model
     {
         [Key]
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }
-
+        public Guid ID { get; set; }
         [Required]
         [MaxLength(501)]
         public string Name { get; set; }
-
         [MaxLength(501)]
         public string Contents { get; set; }
 

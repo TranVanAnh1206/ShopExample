@@ -1,212 +1,288 @@
-﻿
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Product</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Product > Add new</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
-</section>
+﻿<!-- Navbar -->
+<nav class="z-3 position-fixed header-width main-header navbar navbar-expand navbar-white navbar-light">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <h3>Product detail</h3>
+        </li>
+    </ul>
 
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" title="Save" href="javascript:void(0);" ng-click="addProduct(frmAddProduct.$invalid)" role="button">
+                <i class="fa-light fa-floppy-disk"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-danger" title="Cancel" href="javascript:void(0);" ui-sref="products" role="button">
+                <i class="fa-regular fa-xmark-large"></i>
+            </a>
+        </li>
+    </ul>
+</nav>
+<!-- /.navbar -->
 <!--Main content-->
-<section class="content">
+<section class="content pt-6">
+    <!--<div id="loading-bar-container">
+        <loading-bar></loading-bar>
+    </div>-->
     <!-- Horizontal Form -->
     <div class="card card-info">
         <div class="card-header">
-
             <h3 class="card-title">
-                <span ui-sref="products" style="cursor: pointer; padding: 3px 5px"><i class="fa-solid fa-chevron-left" style="color: #fff; margin-right: 29px"></i></span>
+                <span style="cursor: pointer; padding: 3px 5px">
+                    <!--<i class="fa-solid fa-chevron-left" style="color: #fff; margin-right: 29px"></i>-->
+                </span>
                 Add new product
             </h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form class="form-horizontal" novalidate name="frmAddProduct" role="form" ng-submit="addProduct()">
+        <form class="form-horizontal" novalidate name="frmAddProduct" role="form">
             <div class="card-body">
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Name <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input ng-model="product.Name" ng-maxlength="501" required ng-change="getSEOTitle()" class="form-control" name="name" placeholder="Name product ...">
-                        <span ng-show="frmAddProduct.name.$invalid" class="text-danger">Product name is required.</span>
-                        <span ng-show="frmAddProduct.name.$error.maxlength" class="text-danger">Product name no more than 501 characters.</span>
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label px-0">Name <span class="text-danger">*</span></label>
+                        <input ng-model="product.Name"
+                               ng-maxlength="501"
+                               required
+                               ng-change="getSEOTitle()"
+                               class="form-control"
+                               name="name"
+                               title="Name"
+                               placeholder="Name product ...">
+
+                        <div ng-messages="frmAddProduct.name.$error" class="text-danger" ng-if="submitted">
+                            <div ng-message="required">Product name is required.</div>
+                            <div ng-message="maxlength">Product name no more than 501 characters.</div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">SEO Title <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="alias" ng-maxlength="501" required ng-model="product.Alias" class="form-control" placeholder="Alias ...">
-                        <span ng-show="frmAddProduct.alias.$invalid" class="text-danger">SEO Title is required.</span>
-                        <span ng-show="frmAddProduct.alias.$error.maxlength" class="text-danger">Product alias no more than 501 characters.</span>
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label px-0">SEO Title <span class="text-danger">*</span></label>
+                        <input type="text"
+                               name="alias"
+                               ng-maxlength="501"
+                               required
+                               title="Alias"
+                               ng-model="product.Alias"
+                               class="form-control"
+                               placeholder="Alias ...">
+
+                        <div ng-messages="frmAddProduct.alias.$error" class="text-danger" ng-if="submitted">
+                            <div ng-message="required">SEO name is required.</div>
+                            <div ng-message="maxlength">Product alias no more than 501 characters.</div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Price <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="price" required ng-model="product.Price" class="form-control" placeholder="Price ...">
-                        <span ng-show="frmAddProduct.price.$invalid" class="text-danger">Product's price is required.</span>
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Price <span class="text-danger">*</span></label>
+                        <input type="text"
+                               name="price"
+                               required
+                               title="Price"
+                               ng-model="product.Price"
+                               class="form-control"
+                               placeholder="Price ...">
+
+                        <div ng-messages="frmAddProduct.price.$error" class="text-danger" ng-if="submitted">
+                            <div ng-message="required">Product's price is required.</div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Promotion price</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="promotion_price" ng-model="product.PromotionPrice" class="form-control" placeholder="Promotion price ...">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Promotion price</label>
+                        <input type="text"
+                               name="promotion_price"
+                               title="Promotion price"
+                               ng-model="product.PromotionPrice"
+                               class="form-control"
+                               placeholder="Promotion price ...">
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Quantity <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="quantity" required ng-model="product.Quantity" class="form-control" placeholder="Quantity ...">
-                        <span ng-show="frmAddProduct.quantity.$invalid" class="text-danger">Product's quantity is required.</span>
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Quantity <span class="text-danger">*</span></label>
+                        <input type="text"
+                               name="quantity"
+                               title="Quantity"
+                               required
+                               ng-model="product.Quantity"
+                               class="form-control"
+                               placeholder="Quantity ...">
+
+                        <div ng-messages="frmAddProduct.quantity.$error" class="text-danger" ng-if="submitted">
+                            <div ng-message="required">Product's quantity is required.</div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Origin <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="origin" required ng-model="product.Origin" class="form-control" placeholder="Origin ...">
-                        <span ng-show="frmAddProduct.origin.$invalid" class="text-danger">Product's origin is required.</span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Warranty <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="warranty" required ng-model="product.Warranty" class="form-control" placeholder="Warranty ...">
-                        <span ng-show="frmAddProduct.warranty.$invalid" class="text-danger">Product's warranty is required.</span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Description</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="description" ng-model="product.Description" class="form-control" placeholder="Description ...">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Product content</label>
-                    <div class="col-sm-10">
-                        <textarea type="text" name="content" ckeditor="ckeditorOptions" ng-model="product.Contents" class="form-control" placeholder="Contents ..."></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Tags</label>
-                    <div class="col-sm-10">
-
-                        <input type="text" name="tag" ng-model="product.Tags" class="form-control" placeholder="Tags ...">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Parent</label>
-                    <div class="col-sm-10">
-                        <select ng-model="product.CategoryID" name="categoryID" ng-options="option.ID as option.Name for option in categories" class="form-control">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Parent</label>
+                        <select ng-model="product_CategoryID"
+                                name="categoryID"
+                                ng-options="option as option.Name for option in categories track by option.ID"
+                                class="form-control">
                             <option value="">--- Choose product category ---</option>
                         </select>
+                        <input name="categoryID" type="hidden" ng-model="product.CategoryID" />
                     </div>
 
-                    <input name="categoryID" type="hidden" ng-model="product.CategoryID" />
-                </div>
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Origin <span class="text-danger">*</span></label>
+                        <input type="text"
+                               name="origin"
+                               title="Origin"
+                               ng-model="product.Origin"
+                               class="form-control"
+                               placeholder="Origin ...">
+                        <div ng-messages="frmAddProduct.origin.$error" class="text-danger" ng-if="submitted">
+                            <div ng-message="required">Product's origin is required.</div>
+                        </div>
+                    </div>
 
-                <!--<div class="form-group row">
-        <label class="col-sm-2 col-form-label">Display order</label>
-        <div class="col-sm-10">
-            <input type="number" name="displayOrder" required ng-model="product.DisplayOrder" class="form-control" placeholder="Display order ...">
-            <span ng-show="frmAddProduct.displayOrder.$invalid" class="text-danger">Display order is required.</span>
-        </div>
-    </div>-->
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label">Warranty <span class="text-danger">*</span></label>
+                        <input type="text"
+                               name="warranty"
+                               title="Warranty"
+                               ng-model="product.Warranty"
+                               class="form-control"
+                               placeholder="Warranty ...">
+                        <div ng-messages="frmAddProduct.warranty.$error" class="text-danger">
+                            <div ng-message="required">Product's warranty is required.</div>
+                        </div>
+                    </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Image</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label px-0">Description</label>
+                        <input type="text"
+                               name="description"
+                               ng-model="product.Description"
+                               class="form-control"
+                               placeholder="Description ...">
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label px-0">Product content</label>
+                        <textarea type="text"
+                                  name="content"
+                                  ckeditor="ckeditorOptions"
+                                  ng-model="product.Contents"
+                                  class="form-control"
+                                  placeholder="Contents ..."></textarea>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label px-0">Tags</label>
+                        <input type="text"
+                               name="tag"
+                               ng-model="product.Tags"
+                               class="form-control"
+                               placeholder="Tags ...">
+                    </div>
+
+                    <!--<div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Display order</label>
+                        <div class="col-sm-10">
+                            <input type="number" name="displayOrder" required ng-model="product.DisplayOrder" class="form-control" placeholder="Display order ...">
+                            <span ng-show="frmAddProduct.displayOrder.$invalid" class="text-danger">Display order is required.</span>
+                        </div>
+                    </div>-->
+
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label px-0">Image <span class="text-danger">*</span></label>
                         <div class="row">
                             <div class="col-sm-8">
-                                <input type="text" name="image" required ng-model="product.Image" class="form-control" placeholder="Image ...">
-                                <span style="display: block;" ng-show="frmUpdateProduct.image.$invalid" class="text-danger">product image is required.</span>
+                                <input type="text"
+                                       name="image"
+                                       required
+                                       disabled
+                                       ng-model="product.Image"
+                                       class="form-control"
+                                       placeholder="Image ...">
+
+                                <div ng-messages="frmAddProduct.image.$invalid" ng-if="submitted">
+                                    <p ng-message="required" class="text-danger">product image is required.</p>
+                                </div>
+
                                 <button type="button" class="btn btn-primary mt-3 mb-3" ng-click="chooseImage()">Chọn file ảnh</button>
                             </div>
+
                             <div class="col-sm-4">
                                 <img style="width: 100%" src="{{product.Image}}" alt="{{product.Name}}" />
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">More image</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
+                        <label class="col-sm-12 col-form-label px-0">More image</label>
                         <ul class="list-inline">
                             <li class="list-inline-item" ng-repeat="img in moreImgList">
-                                <img class="p-3" src="{{img}}" width="100" alt="" />
+                                <img class="p-3" src="{{img}}" width="100" alt="{{img}}" />
                             </li>
                         </ul>
 
                         <button type="button" class="btn btn-primary mt-3 mb-3" ng-click="chooseMoreImage()">Chọn file ảnh</button>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Meta keyword</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="metaKeyword" ng-model="product.MetaKeyWord" class="form-control" placeholder="Meta keyword ...">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Meta keyword</label>
+                        <input type="text"
+                               name="metaKeyword"
+                               ng-model="product.MetaKeyWord"
+                               class="form-control"
+                               placeholder="Meta keyword ...">
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Meta description</label>
-                    <div class="col-sm-10">
-                        <input ng-model="product.MetaDescription" name="metaDescription" class="form-control" placeholder="Meta description ...">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Meta description</label>
+                        <input ng-model="product.MetaDescription"
+                               name="metaDescription"
+                               class="form-control"
+                               placeholder="Meta description ...">
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Status <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="checkbox" ng-model="product.Status" ng-checked="product.Status" id="status">
-                        <label for="status"> Kích hoạt</label>
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Status <span class="text-danger">*</span></label>
+                        <select ng-options="item as item.Name for item in status track by item.ID"
+                                ng-model="product_Status"
+                                ng-required="true"
+                                name="status"
+                                class="form-control">
+                            <option value="">--- Choose one status ---</option>
+                        </select>
+
+                        <div ng-messages="frmAddProduct.status.$invalid" ng-if="submitted">
+                            <p ng-message="required" class="text-danger">Status is required.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Show on home <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Show on home</label>
                         <input type="checkbox" ng-checked="product.HomeFlag" ng-model="product.HomeFlag" id="homeFlag">
                         <label for="homeFlag"> Hiển thị trang chủ</label>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Hot product <span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="checkbox" ng-checked="product.HotFlag" ng-model="product.HotFlag" id="hotFlag">
+                    <div class="col-sm-6">
+                        <label class="col-sm-12 col-form-label px-0">Hot product</label>
+                        <input type="checkbox"
+                               ng-checked="product.HotFlag"
+                               ng-model="product.HotFlag"
+                               id="hotFlag">
+
                         <label for="hotFlag"> Outstanding product</label>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <p>Các mục có gắn <span class="text-danger">*</span> là những mục bắt buộc</p>
+                    <h4 class="text-danger">Các mục có gắn <span class="text-danger">*</span> là những mục bắt buộc</h4>
                 </div>
 
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                <button ui-sref="products" type="button" class="btn btn-default">&lt; Back to List</button>
-                <button type="submit" ng-disabled="frmAddProduct.$invalid" class="btn btn-info float-right">Create</button>
-            </div>
-            <!-- /.card-footer -->
         </form>
     </div>
     <!-- /.card -->

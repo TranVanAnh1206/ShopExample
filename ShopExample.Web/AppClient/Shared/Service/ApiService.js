@@ -39,7 +39,7 @@
             authenticationService.setHeader()
             $http.put(url, data)
                 .then(function (result) {
-                    console.log(result.data)
+                    //console.log(result.data)
                     success(result);
                 }, function (error) {
                     console.log(error.status)

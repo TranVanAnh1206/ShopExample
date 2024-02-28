@@ -9,9 +9,9 @@ CKFinder.customConfig = function( config )
 	// For the list of available options, check:
 	// http://docs.cksource.com/ckfinder_2.x_api/symbols/CKFinder.config.html
 
-	// Sample configuration options:
+	// Sample configuration option
 	 config.uiColor = '#BDE31E';
-	 config.language = 'fr';
+	 config.language = 'vi';
 	// config.removePlugins = 'basket';
 
 };

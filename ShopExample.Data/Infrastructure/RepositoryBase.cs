@@ -49,7 +49,7 @@ namespace ShopExample.Data.Infrastructure
             return dbSet.Remove(entity);
         }
 
-        public virtual T Delete(long id)
+        public virtual T Delete(Guid id)
         {
             var entity = dbSet.Find(id);
             return dbSet.Remove(entity);
@@ -69,18 +69,16 @@ namespace ShopExample.Data.Infrastructure
         }
 
         // Search MEthod
-        public virtual T GetSingleById(long id)
+        public virtual T GetSingleById(Guid id)
         {
             return dbSet.Find(id);
         }
 
-        // Get List
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes)
         {
             return dbSet.Where(where).ToList();
         }
 
-        // Get Count 
         public virtual int Count(Expression<Func<T, bool>> where)
         {
             return dbSet.Count(where);
@@ -167,6 +165,11 @@ namespace ShopExample.Data.Infrastructure
             }
 
             return await dataContext.Set<T>().ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> where, string includes)
+        {
+            return await dbSet.Where(where).ToListAsync();
         }
 
 

@@ -19,7 +19,7 @@ namespace ShopExample.Web.Mapping
                 cfg.CreateMap<PostCategory, PostCategoryViewModel>();
                 cfg.CreateMap<PostTag, PostTagViewModel>();
                 cfg.CreateMap<Tag, TagViewModel>();
-
+                cfg.CreateMap<Sys_Status, Sys_StatusViewModel>();
                 cfg.CreateMap<Product, ProductViewModel>();
                 cfg.CreateMap<ProductCategory, ProductCategoryViewModel>();
                 cfg.CreateMap<ProductTag, ProductTagViewModel>();

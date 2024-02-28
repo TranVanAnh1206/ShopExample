@@ -14,14 +14,15 @@ namespace ShopExample.Services
     public interface IProductService
     {
         Product Add(Product product);
-        Product Delete(long id);
+        Product Delete(Guid id);
         void Update(Product product);
         IEnumerable<Product> GetAll();
         Task<IEnumerable<Product>> GetAllAsync();
+        IEnumerable<Product> GetBestSellProduct();
         IEnumerable<Product> GetAll(string keyword);
         Task<IEnumerable<Product>> GetAllAsync(string keyword);
-        Product GetByID(long id);
-        IEnumerable<Product> GetAllByCategoryID(long categID);
+        Product GetByID(Guid id);
+        IEnumerable<Product> GetAllByCategoryID(Guid categID);
         void SaveChanged();
     }
 
@@ -31,7 +32,6 @@ namespace ShopExample.Services
         IUnitOfWork _unitOfWork;
         IProductTagRepository _productTagRepository;
         ITagRepository _tagRepository;
-
 
         public ProductService(IProductRepository productRepository, IProductTagRepository productTagRepository, ITagRepository tagRepository, IUnitOfWork unitOfWork)
         {
@@ -76,7 +76,12 @@ namespace ShopExample.Services
             return newProduct;
         }
 
-        public Product Delete(long id)
+        public IEnumerable<Product> GetBestSellProduct()
+        {
+            return _productRepository.GetBestSellProduct();
+        }
+
+        public Product Delete(Guid id)
         {
             return _productRepository.Delete(id);
         }
@@ -115,12 +120,12 @@ namespace ShopExample.Services
             }
         }
 
-        public IEnumerable<Product> GetAllByCategoryID(long categID)
+        public IEnumerable<Product> GetAllByCategoryID(Guid categID)
         {
             return _productRepository.GetMulti(x => x.CategoryID == categID);
         }
 
-        public Product GetByID(long id)
+        public Product GetByID(Guid id)
         {
             return _productRepository.GetSingleById(id);
         }

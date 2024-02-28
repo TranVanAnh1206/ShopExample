@@ -14,31 +14,23 @@ namespace ShopExample.Model.Model
     {
         [Key]
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }
-
+        public Guid ID { get; set; }
         [Required]
         [MaxLength(501)]
         public string CustomerName { get; set; }
-
         [Required]
         [MaxLength(501)]
         public string CustomerAddress { get; set; }
-
         [Required]
         [MaxLength(20)]
         public string CustomerPhone { get; set; }
-
         [MaxLength(501)]
         public string CustomerEmail { get; set; }
-
         [MaxLength(501)]
         public string CustomerMessage { get; set; }
-
         [Required]
         [MaxLength(256)]
         public string PaymentMethod { get; set; }
-
         [MaxLength(256)]
         public string PaymentStatus { get; set; }
 

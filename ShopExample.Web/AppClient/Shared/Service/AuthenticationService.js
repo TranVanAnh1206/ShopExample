@@ -49,7 +49,12 @@
                 //    $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
                 //}
 
-                if ((authData.authenticationData != undefined) && (authData.authenticationData.accessToken != undefined) && (authData.authenticationData.accessToken != null) && (authData.authenticationData.accessToken != "")) {
+                if (
+                    (authData.authenticationData != undefined)
+                    && (authData.authenticationData.accessToken != undefined)
+                    && (authData.authenticationData.accessToken != null)
+                    && (authData.authenticationData.accessToken != "")
+                ) {
                     $http.defaults.headers.common['Authorization'] = 'Bearer ' + authData.authenticationData.accessToken;
                     $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
                 }
@@ -59,6 +64,7 @@
                 var url = 'api/home/TestMethod';
 
                 var deferred = $q.defer();
+
                 $http.get(url)
                     .then(
                         function () {

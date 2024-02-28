@@ -19,9 +19,11 @@ namespace ShopExample.Web.API
 {
     [Authorize]
     [RoutePrefix("api/product")]
-    public class ProductController : API_BaseController
+    public class ProductController : BaseAPIController
     {
+        
         IProductService _productService;
+        //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ProductController(IErrorService errorService, IProductService productService) : base(errorService)
         {
@@ -30,7 +32,7 @@ namespace ShopExample.Web.API
 
         [Route("getbyid/{id}")]
         [HttpGet]
-        public HttpResponseMessage Get(HttpRequestMessage requestMessage, long id)
+        public HttpResponseMessage Get(HttpRequestMessage requestMessage, Guid id)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
@@ -47,6 +49,7 @@ namespace ShopExample.Web.API
                 }
                 catch (Exception ex)
                 {
+                    //log.Error(ex);
                     response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
                 }
 
@@ -77,14 +80,13 @@ namespace ShopExample.Web.API
                     var mapper = AutoMapperConfiguration.Configure();
                     var responseData = mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(query.AsEnumerable());
 
-
                     int totalRow = list.Count();
 
                     var pagination = new PaginationSet<ProductViewModel>()
                     {
                         Items = responseData,
                         TotalCount = totalRow,
-                        TotalPage = (int) Math.Ceiling((double) totalRow / (double) pageSize),
+                        TotalPage = (int)Math.Ceiling((double)totalRow / (double)pageSize),
                         Page = page
 
                     };
@@ -109,31 +111,31 @@ namespace ShopExample.Web.API
         [AllowAnonymous]
         public HttpResponseMessage GetAll(HttpRequestMessage requestMessage, string searchKeyword, int page, int pageSize = 20)
         {
-                return CreatedHttpResponse(requestMessage, () =>
+            return CreatedHttpResponse(requestMessage, () =>
+            {
+                var list = _productService.GetAll(searchKeyword);
+
+                var query = list.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
+
+                var mapper = AutoMapperConfiguration.Configure();
+                var responseData = mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(query.AsEnumerable());
+
+
+                int totalRow = list.Count();
+
+                var pagination = new PaginationSet<ProductViewModel>()
                 {
-                    var list = _productService.GetAll(searchKeyword);
+                    Items = responseData,
+                    TotalCount = totalRow,
+                    TotalPage = (int)Math.Ceiling((double)totalRow / (double)pageSize),
+                    Page = page
 
-                    var query = list.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
+                };
 
-                    var mapper = AutoMapperConfiguration.Configure();
-                    var responseData = mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(query.AsEnumerable());
+                var response = requestMessage.CreateResponse(HttpStatusCode.OK, pagination);
 
-
-                    int totalRow = list.Count();
-
-                    var pagination = new PaginationSet<ProductViewModel>()
-                    {
-                        Items = responseData,
-                        TotalCount = totalRow,
-                        TotalPage = (int)Math.Ceiling((double)totalRow / (double)pageSize),
-                        Page = page
-
-                    };
-
-                    var response = requestMessage.CreateResponse(HttpStatusCode.OK, pagination);
-
-                    return response;
-                });
+                return response;
+            });
         }
 
         [Route("addnew")]
@@ -155,9 +157,10 @@ namespace ShopExample.Web.API
                         try
                         {
                             var newProduct = new Product();
-                            newProduct.UpdateProduct(pvm);
+                            newProduct.ID = Guid.NewGuid();
                             newProduct.CreatedDate = DateTime.Now;
                             newProduct.CreatedBy = User.Identity.Name;
+                            newProduct.UpdateProduct(pvm);
 
                             _productService.Add(newProduct);
                             _productService.SaveChanged();
@@ -176,6 +179,7 @@ namespace ShopExample.Web.API
                 }
                 catch (Exception ex)
                 {
+                    //log.Error(ex);
                     response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
                 }
 
@@ -203,9 +207,9 @@ namespace ShopExample.Web.API
                         try
                         {
                             var product = _productService.GetByID(pvm.ID);
-                            product.UpdateProduct(pvm);
                             product.ModifiedDate = DateTime.Now;
                             product.ModifiedBy = User.Identity.Name;
+                            product.UpdateProduct(pvm);
 
                             _productService.Update(product);
                             _productService.SaveChanged();
@@ -225,6 +229,7 @@ namespace ShopExample.Web.API
                 }
                 catch (Exception ex)
                 {
+                    //log.Error(ex);
                     response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
                 }
 
@@ -242,21 +247,21 @@ namespace ShopExample.Web.API
 
                 try
                 {
-                    var listProduct = new JavaScriptSerializer().Deserialize<List<Product>>(productCheckedJSON);
+                    var listProductID = new JavaScriptSerializer().Deserialize<List<ProductViewModel>>(productCheckedJSON);
 
-                    foreach (var item in listProduct)
+                    foreach (var item in listProductID)
                     {
                         _productService.Delete(item.ID);
                     }
 
                     _productService.SaveChanged();
 
-                    response = requestMessage.CreateResponse(HttpStatusCode.OK, listProduct.Count());
-
-
+                    response = requestMessage.CreateResponse(HttpStatusCode.OK, listProductID.Count());
                 }
                 catch (Exception ex)
                 {
+
+                    //log.Error(ex);
                     response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
                 }
 

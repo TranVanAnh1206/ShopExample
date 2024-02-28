@@ -17,7 +17,7 @@ namespace ShopExample.Web.API
 
     [Authorize]
     [RoutePrefix("api/postcategory")]
-    public class PostCategoryController : API_BaseController
+    public class PostCategoryController : BaseAPIController
     {
         IPostCategoryService _postCategoryService;
 
@@ -107,7 +107,7 @@ namespace ShopExample.Web.API
         // DELETE api/<controller>/5
         [Route("delete")]
         [HttpDelete]
-        public HttpResponseMessage Delete(HttpRequestMessage requestMessage, long id)
+        public HttpResponseMessage Delete(HttpRequestMessage requestMessage, Guid id)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {

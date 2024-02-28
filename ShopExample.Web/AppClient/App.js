@@ -4,9 +4,12 @@
 
 (function () {
     angular
-        .module('shopexample', ['shopexample.products',
+        .module('shopexample',
+            ['shopexample.products',
             'shopexample.products_category',
-            'shopexample.common'])
+            'shopexample.post_category',
+            'shopexample.common'    
+            ])
         .config(config)
         .config(configAuthentication)
 

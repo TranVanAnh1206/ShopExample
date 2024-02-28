@@ -12,11 +12,11 @@ namespace ShopExample.Services
     public interface IPostCategoryService
     {
         PostCategory Add(PostCategory pc);
-        PostCategory Delete(long id);
+        PostCategory Delete(Guid id);
         void Update(PostCategory pc);
         IEnumerable<PostCategory> GetAll();
-        IEnumerable<PostCategory> GetAllByParentId(long parentId);
-        PostCategory GetById(long id);
+        IEnumerable<PostCategory> GetAllByParentId(Guid parentId);
+        PostCategory GetById(Guid id);
         void SaveChanged();
     }
 
@@ -36,7 +36,7 @@ namespace ShopExample.Services
             return _postCategoryRepository.Add(pc);
         }
 
-        public PostCategory Delete(long id)
+        public PostCategory Delete(Guid id)
         {
             return _postCategoryRepository.Delete(id);
         }
@@ -46,12 +46,12 @@ namespace ShopExample.Services
             return _postCategoryRepository.GetAll();
         }
 
-        public IEnumerable<PostCategory> GetAllByParentId(long parentId)
+        public IEnumerable<PostCategory> GetAllByParentId(Guid parentId)
         {
-            return _postCategoryRepository.GetMulti(x => x.Status && x.ParentID == parentId);
+            return _postCategoryRepository.GetMulti(x => x.Status == 1 && x.ParentID == parentId);
         }
 
-        public PostCategory GetById(long id)
+        public PostCategory GetById(Guid id)
         {
             return _postCategoryRepository.GetSingleById(id);
         }

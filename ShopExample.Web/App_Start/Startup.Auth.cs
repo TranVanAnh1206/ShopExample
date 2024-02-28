@@ -26,11 +26,12 @@ namespace ShopExample.Web.App_Start
 
             app.CreatePerOwinContext<UserManager<ApplicationUser>>(CreateManager);
 
+            // cấu hình cho token trả về
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/oauth/token"),
                 Provider = new AuthorizationServerProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
                 AllowInsecureHttp = true,
 
             });

@@ -68,8 +68,8 @@ namespace ShopExample.Web.Infrastructure.Extensions
             p.Quantity = pVM.Quantity;
             p.Price = pVM.Price;
             p.PromotionPrice = pVM.PromotionPrice;
-            p.Warranty = pVM.Warranty;
-            p.Origin = pVM.Origin;
+            //p.Warranty = pVM.Warranty;
+            //p.Origin = pVM.Origin;
             //p.DisplayOrder = pVM.DisplayOrder;
             p.HomeFlag = pVM.HomeFlag;
             p.HotFlag = pVM.HotFlag;
@@ -93,7 +93,7 @@ namespace ShopExample.Web.Infrastructure.Extensions
             p.Description = pVM.Description;
             p.Alias = pVM.Alias;
             p.Contents = pVM.Contents;
-            p.CategoryID = pVM.CategoryID;
+            p.CategoryID = pVM.CategoryID.Value;
             p.Image = pVM.Image;
             p.ViewCount = pVM.ViewCount;
             p.HomeFlag = pVM.HomeFlag;

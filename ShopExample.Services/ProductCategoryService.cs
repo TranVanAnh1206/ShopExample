@@ -12,12 +12,14 @@ namespace ShopExample.Services
     public interface IProductCategoryService
     {
         ProductCategory Add(ProductCategory pc);
-        ProductCategory Delete(long id);
+        ProductCategory Delete(Guid id);
         void Update(ProductCategory pc);
         IEnumerable<ProductCategory> GetAll();
+        Task<IEnumerable<ProductCategory>> GetManyAsync(int status);
+        IEnumerable<ProductCategory> GetMany(int status);
         IEnumerable<ProductCategory> GetAll(string keyword);
-        IEnumerable<ProductCategory> GetAllByParentId(long parentId);
-        ProductCategory GetById(long id);
+        IEnumerable<ProductCategory> GetAllByParentId(Guid parentId);
+        ProductCategory GetById(Guid id);
         void SaveChanged();
     }
 
@@ -37,7 +39,7 @@ namespace ShopExample.Services
             return _productCategoryRepository.Add(pc);
         }
 
-        public ProductCategory Delete(long id)
+        public ProductCategory Delete(Guid id)
         {
             return _productCategoryRepository.Delete(id);
         }
@@ -55,14 +57,24 @@ namespace ShopExample.Services
                 return _productCategoryRepository.GetAll();
         }
 
-        public IEnumerable<ProductCategory> GetAllByParentId(long parentId)
+        public IEnumerable<ProductCategory> GetAllByParentId(Guid parentId)
         {
-            return _productCategoryRepository.GetMulti(x => x.Status && x.ParentID == parentId);
+            return _productCategoryRepository.GetMulti(x => x.Status == 1 && x.ParentID == parentId);
         }
 
-        public ProductCategory GetById(long id)
+        public ProductCategory GetById(Guid id)
         {
             return _productCategoryRepository.GetSingleById(id);
+        }
+
+        public IEnumerable<ProductCategory> GetMany(int status)
+        {
+            return _productCategoryRepository.GetMany(x => x.Status == status, "");
+        }
+
+        public async Task<IEnumerable<ProductCategory>> GetManyAsync(int status)
+        {
+            return await _productCategoryRepository.GetManyAsync(x => x.Status == status, "");
         }
 
         public void SaveChanged()

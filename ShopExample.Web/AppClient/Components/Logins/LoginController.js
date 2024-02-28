@@ -8,11 +8,13 @@
 
     function LoginController($scope, loginService, $injector, notificationService) {
         $scope.loginData = {
-            userName: "",
-            password: ""
+            userName: "TranVanAnh",
+            password: "12345$"
         };
+        $scope.loading = false;
 
         $scope.login = function () {
+            $scope.loading = true;
             loginService.login($scope.loginData.userName, $scope.loginData.password)
                 .then(function (response) {
 
@@ -31,6 +33,9 @@
 
                         //console.log('Login successed ...')
                     }
+                })
+                .finally(function () {
+                    $scope.loading = false; // Ẩn hiệu ứng loading khi xử lý đăng nhập hoàn thành (thành công hoặc thất bại)
                 });
         }
 

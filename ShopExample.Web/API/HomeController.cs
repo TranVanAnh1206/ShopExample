@@ -11,7 +11,7 @@ namespace ShopExample.Web.API
 {
     [Authorize]
     [RoutePrefix("api/home")]
-    public class HomeController : API_BaseController
+    public class HomeController : BaseAPIController
     {
         IErrorService _errorService;
 

@@ -8,20 +8,16 @@ using System.Threading.Tasks;
 
 namespace ShopExample.Model.Model
 {
-    [Table("SystemConfigs")]
+    [Table("SystemConfigs" )]
     public class SystemConfig
     {
         [Key]
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }
-
+        public Guid ID { get; set; }
         [Required]
         public int Code { get; set; }
-
         [MaxLength(500)]
         public string ValueStr { get; set; }
-
         public int ValueInt { get; set; }
     }
 }

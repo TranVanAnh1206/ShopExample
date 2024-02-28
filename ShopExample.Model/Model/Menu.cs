@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,29 +11,20 @@ namespace ShopExample.Model.Model
     {
         [Key]
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ID { get; set; }
-
+        public Guid ID { get; set; }
         [Required]
         [MaxLength(501)]
         public string Name { get; set; }
-
         [Required]
         [MaxLength(256)]
-        [Column(TypeName = "varchar")]
         public string Url { get; set; }
-
         public int DisplayOrder { get; set; }
-
-        public long GroupID { get; set; }
+        public Guid GroupID { get; set; }
         [ForeignKey("GroupID")]
         public virtual MenuGroup MenuGroup { get; set; }
-
         [Required]
-        [Column(TypeName = "varchar")]
         [MaxLength(10)]
         public string Target { get; set; }
-
         [Required]
         [DefaultValue(true)]
         public bool Static { get; set; }

@@ -7,11 +7,8 @@
             @{ var item_index = 1; }
             @foreach (var category in Model.Where(x => x.ParentID == null))
             {
-
                 var childCategories = Model.Where(x => x.ParentID == category.ID);
                 var isHaveChild = childCategories.Count() > 0;
-
-
 
                 if (isHaveChild)
                 {

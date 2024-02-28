@@ -29,6 +29,14 @@
     {
       "library": "angular-loading-bar@0.9.0",
       "destination": "Assets/Admin/Libs/AngularLoadingBar/"
+    },
+    {
+      "library": "angular-messages@1.8.3",
+      "destination": "Assets/Admin/Libs/AngularMessage/"
+    },
+    {
+      "library": "angular-animate@1.8.3",
+      "destination": "Assets/Admin/Libs/AngularAnimate/"
     }
   ]
 }

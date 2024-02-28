@@ -1,0 +1,113 @@
+﻿<style>
+    .badge-overrise {
+        padding: 0.4em 0.6em;
+        font-size: 1.02em;
+    }
+
+    .card-tools {
+        display: flex;
+    }
+</style>
+
+<!--Content Header(Page header)-->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Product category</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Product category</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<section class="content-header">
+    <a ui-sref="addPostCategory" class="btn-primary btn">
+        <i class="fa-solid fa-plus fa-beat"></i>
+        Create new
+    </a>
+    <button ng-click="deleteMultiple()" id="btnDeleteMulti" hidden class="btn-danger btn">
+        <i class="fa-sharp fa-solid fa-trash-can fa-shake"></i>
+        Xóa
+    </button>
+</section>
+
+<!--Main content-->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">List product category</h3>
+
+            <div class="card-tools">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" style="width: 300px;" ng-model="keyword" placeholder="enter keyword to search ..." aria-label="enter keyword to search ..." aria-describedby="button-search">
+                    <button style="margin-right: 25px;" class="btn btn-outline-secondary" type="button" ng-click="search()" id="button-search">
+                        <i class="fa-sharp fa-solid fa-magnifying-glass fa-beat"></i>
+                    </button>
+                </div>
+
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <!--<button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>-->
+            </div>
+
+
+        </div>
+
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 3%; text-align: center; cursor: pointer; ">
+                            <input ng-click="selectAll()" id="txb_selectAll" type="checkbox" name="selectAll" />
+                        </th>
+                        <th style="width: 5%">#</th>
+                        <th>Name</th>
+                        <th style="width: 15%;">Created Date</th>
+                        <th style="width: 15%; text-align: center">Status</th>
+                        <th style="width: 10%"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="item in postcategoryList">
+                        <td><input style="cursor: pointer; " name="selectAll" ng-model="item.checked" type="checkbox" /></td>
+                        <td>{{item.ID}}</td>
+                        <td>{{item.Name}}</td>
+                        <td>{{item.CreatedDate | date:'dd/MM/yyyy'}}</td>
+                        <td class="text-center">
+                            <span ng-class="{'badge badge-overrise bg-danger':item.Status==false, 'badge badge-overrise bg-success':item.Status==true}">
+                                {{item.Status | StatusFilter}}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" ui-sref="update_product_category({id:item.ID})"><i class="fa-sharp fa-solid fa-pen-nib fa-beat"></i></button>
+                            <button class="btn btn-danger" ng-click="deleteProductCategory(item.ID)"><i class="fa-sharp fa-solid fa-trash-can fa-shake"></i> </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <p>Tổng số bản ghi: {{totalCount}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <p ng-hide="pagesCount == 0">Trang {{page + 1}} / {{pagesCount}}</p>
+                <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-func="getListProductCategory(page)"></pager-directive>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--/.content -->

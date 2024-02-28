@@ -5,6 +5,7 @@
 
     function RootController($scope, $state, $ngBootbox, loginService, authenticationService, authData) {
         $scope.logout = Logout
+        $scope.copyright = new Date().getFullYear();
 
         function Logout() {
             $ngBootbox.confirm('Bạn có chắc muốn đăng xuất.')
@@ -17,7 +18,16 @@
 
         $scope.authentication = authData.authenticationData
 
-        console.log(authData.authenticationData)
+        function CheckLoad() {
+            //$(window).on('beforeunload', function () {
+            //    return "Bạn có chắc chắn muốn rời khỏi trang này?";
+            //});
+        }
+
+        CheckLoad();
+
+
+        //console.log(authData.authenticationData)
 
         //authenticationService.validateRequest()
     }

@@ -15,12 +15,7 @@
                 //console.log(data)
                 //console.log('==================')
 
-                $http.post('/oauth/token', data,
-                    {
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        }
-                    })
+                $http.post('/oauth/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
                     .then(function (response) {
                         userInfo = {
                             accessToken: response.data.access_token,
