@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ShopExample.Web.Infrastructure.Extensions;
+using ShopExample.Services.interfaces;
 
 namespace ShopExample.Web.API
 {

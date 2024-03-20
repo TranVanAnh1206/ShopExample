@@ -4,6 +4,7 @@ using ShopExample.Data.Infrastructure;
 using ShopExample.Data.Repositories;
 using ShopExample.Model.Model;
 using ShopExample.Services;
+using ShopExample.Services.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

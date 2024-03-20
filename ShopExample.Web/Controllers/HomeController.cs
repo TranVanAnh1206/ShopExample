@@ -1,5 +1,6 @@
 ﻿using ShopExample.Model.Model;
 using ShopExample.Services;
+using ShopExample.Services.interfaces;
 using ShopExample.Web.Mapping;
 using ShopExample.Web.Models;
 using System;

@@ -16,7 +16,6 @@ namespace ShopExample.Web.Models
         public string Image { get; set; }
         public int? DisplayOrder { get; set; }
         public bool HomeFlag { get; set; }
-        public virtual IEnumerable<ProductViewModel> Post { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? ModifiedDate { get; set; }

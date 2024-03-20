@@ -11,7 +11,6 @@ namespace ShopExample.Data
 {
     public class ShopExampleDBContext : IdentityDbContext<ApplicationUser>
     {
-
         public ShopExampleDBContext() : base("ShopExampleConnection")
         {
             // khi chúng ta load một bẳng cha thì không tự động include thêm bảng con

@@ -1,4 +1,5 @@
 ﻿using ShopExample.Services;
+using ShopExample.Services.interfaces;
 using ShopExample.Web.Infrastructure.Core;
 using System;
 using System.Collections.Generic;

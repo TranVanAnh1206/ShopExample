@@ -1,5 +1,6 @@
 ﻿using ShopExample.Model.Model;
 using ShopExample.Services;
+using ShopExample.Services.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
@@ -48,11 +49,13 @@ namespace ShopExample.Web.Infrastructure.Core
             catch (DbUpdateException dbex)
             {
                 LogError(dbex);
+                logger.Error(dbex);
                 responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbex.InnerException.Message);
             }
             catch (Exception ex)
             {
                 LogError(ex);
+                logger.Error(ex);
                 responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
 
@@ -65,6 +68,7 @@ namespace ShopExample.Web.Infrastructure.Core
             try
             {
                 Error err = new Error();
+                err.ID = Guid.NewGuid();
                 err.CreatedDate = DateTime.Now;
                 err.StackTrace = ex.StackTrace;
                 err.Message = ex.Message;
@@ -72,9 +76,9 @@ namespace ShopExample.Web.Infrastructure.Core
                 _errorService.Created(err);
                 _errorService.SaveChanged();
             }
-            catch
+            catch (Exception exc)
             {
-
+                logger.Error(exc);
             }
         }
 

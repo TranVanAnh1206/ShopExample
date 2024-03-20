@@ -24,8 +24,6 @@
             //});
         }
 
-        CheckLoad();
-
 
         //console.log(authData.authenticationData)
 

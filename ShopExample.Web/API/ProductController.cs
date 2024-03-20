@@ -14,6 +14,7 @@ using System.Web;
 using System.Web.Http;
 using ShopExample.Web.Infrastructure.Extensions;
 using System.Web.Script.Serialization;
+using ShopExample.Services.interfaces;
 
 namespace ShopExample.Web.API
 {
@@ -157,10 +158,10 @@ namespace ShopExample.Web.API
                         try
                         {
                             var newProduct = new Product();
+                            newProduct.UpdateProduct(pvm);
                             newProduct.ID = Guid.NewGuid();
                             newProduct.CreatedDate = DateTime.Now;
                             newProduct.CreatedBy = User.Identity.Name;
-                            newProduct.UpdateProduct(pvm);
 
                             _productService.Add(newProduct);
                             _productService.SaveChanged();
@@ -207,9 +208,9 @@ namespace ShopExample.Web.API
                         try
                         {
                             var product = _productService.GetByID(pvm.ID);
+                            product.UpdateProduct(pvm);
                             product.ModifiedDate = DateTime.Now;
                             product.ModifiedBy = User.Identity.Name;
-                            product.UpdateProduct(pvm);
 
                             _productService.Update(product);
                             _productService.SaveChanged();

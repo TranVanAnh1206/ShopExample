@@ -61,6 +61,10 @@
     padding-top: 4rem !important;
 }
 
+.pt-7, .py-7 {
+    padding-top: 5rem !important;
+}
+
 body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
 body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
 body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {

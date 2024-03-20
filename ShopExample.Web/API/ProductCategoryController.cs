@@ -14,6 +14,8 @@ using System.Web.Http;
 using ShopExample.Web.Infrastructure.Extensions;
 using System.Threading;
 using System.Web.Script.Serialization;
+using ShopExample.Services.interfaces;
+using ShopExample.Data;
 
 namespace ShopExample.Web.API
 {
@@ -22,14 +24,16 @@ namespace ShopExample.Web.API
     public class ProductCategoryController : BaseAPIController
     {
         IProductCategoryService _productCategoryService;
+        ShopExampleDBContext _dbContext;
 
-        public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService)
+        public ProductCategoryController(IErrorService errorService, IProductCategoryService productCategoryService, ShopExampleDBContext dbContext)
             : base(errorService)
         {
             this._productCategoryService = productCategoryService;
+            _dbContext = dbContext;
         }
 
-        [Route("getbyid/{id:long}")]
+        [Route("getbyid/{id}")]
         [HttpGet]
         public HttpResponseMessage GetByID(HttpRequestMessage requestMessage, Guid id)
         {
@@ -87,21 +91,14 @@ namespace ShopExample.Web.API
         [Route("getall")]
         [HttpGet]
         [AllowAnonymous]
-        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage, string keyword, int page = 0, int pageSize = 20)
+        public HttpResponseMessage GetAll(HttpRequestMessage requestMessage, string keyword, int page = 0, int pageSize = 2)
         {
             return CreatedHttpResponse(requestMessage, () =>
             {
+                //var listPC = _productCategoryService.GetAll(keyword);
 
-                List<Guid> ids = new List<Guid>();
+                var listPC = _dbContext.ProductCategories.SqlQuery("select * from ProductCategories");
 
-                for (int i = 0; i < 18; i++)
-                {
-                    var item = Guid.NewGuid();
-                    ids.Add(item);
-                }
-
-
-                var listPC = _productCategoryService.GetAll(keyword);
                 int totalRow = listPC.Count();
                 var query = listPC.OrderByDescending(x => x.CreatedDate).Skip((page) * pageSize).Take(pageSize);
 
@@ -139,6 +136,7 @@ namespace ShopExample.Web.API
                 {
                     var newProductCateg = new ProductCategory();
                     newProductCateg.UpdateProductCategory(pcVM);
+                    newProductCateg.ID = Guid.NewGuid();
                     newProductCateg.CreatedDate = DateTime.Now;
                     newProductCateg.CreatedBy = User.Identity.Name;
 

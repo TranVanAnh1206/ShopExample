@@ -10,7 +10,8 @@
             'ngCkeditor',
             'LocalStorageModule',
             'ngMessages',
-            'angular-loading-bar'
+            'angular-loading-bar',
+            'ngAnimate'
         ])
         .config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
             // Thay đổi màu sắc của loading bar

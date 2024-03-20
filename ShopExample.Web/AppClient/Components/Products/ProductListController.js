@@ -98,15 +98,14 @@
             if ($scope.checked_product_list.length > 0) {
                 var list_checked_id = [];
 
-                if ($scope.checked_product_list.length > 0)
-                    angular.forEach($scope.checked_product_list, (item) => {
-                        var prod_item = {
-                            ID: item.ID,
-                            Name: item.Name
-                        }
+                angular.forEach($scope.checked_product_list, (item) => {
+                    var prod_item = {
+                        ID: item.ID,
+                        Name: item.Name
+                    }
 
-                        list_checked_id.push(prod_item);
-                    });
+                    list_checked_id.push(prod_item);
+                });
 
                 var config = {
                     params: {

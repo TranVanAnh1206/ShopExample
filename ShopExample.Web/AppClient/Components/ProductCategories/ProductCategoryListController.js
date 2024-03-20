@@ -3,19 +3,56 @@
 (function (app) {
     app.controller('ProductCategoryListController', ProductCategoryListController)
 
-    ProductCategoryListController.$inject = ['$scope', 'ApiService', 'notificationService', '$ngBootbox', '$filter']
+    ProductCategoryListController.$inject = ['$scope', 'ApiService', 'notificationService', '$ngBootbox', '$filter', '$location']
 
-    function ProductCategoryListController($scope, ApiService, notificationService, $ngBootbox, $filter) {
-        $scope.productCategories = []
-        $scope.page = 0
-        $scope.pagesCount = 0
-        $scope.keyword = ''
-        $scope.getListProductCategory = GetListProductCategory
-        $scope.search = Search
-        $scope.deleteProductCategory = DeleteProductCategory
-        $scope.selectAll = SelectAll
-        $scope.deleteMultiple = DeleteMultiple
-        $scope.isSelectAll = false
+    function ProductCategoryListController($scope, ApiService, notificationService, $ngBootbox, $filter, $location) {
+        var vm = $scope;
+
+        vm.productCategories = [];
+        vm.checked_productcategory_list = [];
+        vm.page = 0;
+        vm.pagesCount = 0;
+        vm.keyword = '';
+        vm.getListProductCategory = GetListProductCategory;
+        vm.search = Search;
+        vm.selectAll = SelectAll
+        vm.deleteMultiple = DeleteMultiple;
+        vm.isSelectAll = false;
+        vm.selectProductCategory = selectProductCategory;
+        vm.Dbl_Select_ProductCategory = Dbl_Select_ProductCategory;
+        vm.update_product_category = update_product_category;
+        function Dbl_Select_ProductCategory(item) {
+            var path = '/update_product_category/' + item.ID;
+
+            $location.path(path);
+        }
+
+        function update_product_category() {
+            if (vm.checked_productcategory_list.length == 0) {
+                notificationService.displayError('Please select a record ...');
+            } else if (vm.checked_productcategory_list.length > 1) {
+                notificationService.displayError('Only one record can be selected ...');
+            } else {
+                Dbl_Select_ProductCategory(vm.checked_productcategory_list[0]);
+            }
+        }
+
+        function selectProductCategory(item) {
+            //console.log(item);
+
+            var check_all = true
+
+            item.checked = !item.checked;
+
+            angular.forEach(vm.productCategories, (i) => {
+                if (!i.checked) {
+                    check_all = false;
+                    return;
+                }
+            })
+
+            vm.isSelectAll = check_all;
+        }
 
         // Hàm xử lý tìm kiếm sản phẩm
         function Search() {
@@ -28,9 +65,9 @@
 
             var config = {
                 params: {
-                    keyword: $scope.keyword,
+                    keyword: vm.keyword,
                     page: page,
-                    pageSize: 20
+                    pageSize: 2
                 }
             }
 
@@ -39,10 +76,11 @@
                     notificationService.displayWarning('Không tìm thấy danh mục sản phẩm nào.')
                 } else {
                     //notificationService.displaySuccess('Đã tìm thấy ' + result.data.TotalCount + ' danh mục sản phẩm.')
-                    $scope.productCategories = result.data.Items
-                    $scope.page = result.data.Page
-                    $scope.pagesCount = result.data.TotalPage
-                    $scope.totalCount = result.data.TotalCount
+                    vm.productCategories = result.data.Items
+                    vm.page = result.data.Page
+                    vm.pagesCount = result.data.TotalPage
+                    vm.totalCount = result.data.TotalCount
+                    console.log(result);
                 }
 
 
@@ -51,81 +89,77 @@
             })
         }
 
-        // Hàm xử lý chỉ xóa một bản ghi
-        function DeleteProductCategory(id) {
-            $ngBootbox.confirm('Bạn có chắc muốn xóa.')
-                .then(function () {
-                    var config = {
-                        params: {
-                            id: id
-                        }
-                    }
-
-                    ApiService.del('/api/productcategory/delete', config, function (result) {
-                        notificationService.displaySuccess('Xóa thành công.')
-                        Search()
-                    }, function (error) {
-                        notificationService.displayError('Xóa không thành công, có lỗi phát sinh')
-                    })
-                })
-        }
-
         // Hàm select một product category
-        $scope.$watch('productCategories', function (n, o) {
+        vm.$watch('productCategories', function (n, o) {
             var checked = $filter('filter')(n, { checked: true, })
 
-            if (checked.length) {
-                $scope.selected = checked
-                $('#btnDeleteMulti').removeAttr('hidden')
+            vm.checked_productcategory_list = checked;
 
+
+            if (checked.length) {
                 if (checked.length === n.length) {
-                    $scope.isSelectAll = true
+                    vm.isSelectAll = true
                     $('#txb_selectAll').attr('checked', 'checked');
                 } else {
                     $('#txb_selectAll').removeAttr('checked');
-                    $scope.isSelectAll = false
+                    vm.isSelectAll = false
                 }
             }
             else {
-                $('#btnDeleteMulti').attr('hidden', 'hidden');
-                $scope.isSelectAll = false
+                vm.isSelectAll = false
             }
         }, true)
 
         // Hàm sử lý checkout        
         function SelectAll() {
-            if ($scope.isSelectAll === false) {
-                angular.forEach($scope.productCategories, (item) => {
+            if (vm.isSelectAll === false) {
+                angular.forEach(vm.productCategories, (item) => {
                     item.checked = true
                 })
-                $scope.isSelectAll = true
+                vm.isSelectAll = true
             }
             else {
-                angular.forEach($scope.productCategories, (item) => {
+                angular.forEach(vm.productCategories, (item) => {
                     item.checked = false
                 })
-                $scope.isSelectAll = false
+                vm.isSelectAll = false
             }
         }
 
         // Hàm xử lý xóa nhiều bản ghi
         function DeleteMultiple() {
-            const config = {
-                params: {
-                    checkedProductCategoryJson: JSON.stringify($scope.selected),
-                }
-            }
+            if (vm.checked_productcategory_list.length <= 0) {
+                notificationService.displayError('Please select a record ...');
+            } else {
+                var list_checked = [];
 
-            ApiService.del('/api/productcategory/deletemulti', config, function (result) {
-                notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi.')
-                Search()
-            }, function (error) {
-                notificationService.displayError('Không thể xóa, có lỗi phát sinh.')
-            })
+                angular.forEach(vm.checked_productcategory_list, item => {
+                    var i = {
+                        ID: item.ID,
+                        Name: item.Name
+                    }
+
+                    list_checked.push(i);
+                });
+
+                const config = {
+                    params: {
+                        checkedProductCategoryJson: JSON.stringify(list_checked),
+                    }
+                }
+
+                ApiService.del('/api/productcategory/deletemulti', config, function (result) {
+                    notificationService.displaySuccess('Delete successfully ' + result.data + ' record.');
+                    vm.checked_productcategory_list = [];
+                    vm.getListProductCategory();
+                }, function (error) {
+                    notificationService.displayError('Cannot deleted ...');
+                })
+            }
         }
 
         // Gọi hàm
-        $scope.getListProductCategory();
+        vm.getListProductCategory();
 
     }
 

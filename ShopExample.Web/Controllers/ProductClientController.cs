@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ShopExample.Model.Model;
 using ShopExample.Services;
+using ShopExample.Services.interfaces;
 using ShopExample.Web.Models;
 using System;
 using System.Collections.Generic;

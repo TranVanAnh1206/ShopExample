@@ -18,8 +18,8 @@
             loginService.login($scope.loginData.userName, $scope.loginData.password)
                 .then(function (response) {
 
-                    //console.log('từ loginController, response = ')
-                    //console.log(response)
+                    console.log('từ loginController, response = ')
+                    console.log(response)
                     //console.log('===============================')
 
                     if (response != null && response.data.error != undefined) {

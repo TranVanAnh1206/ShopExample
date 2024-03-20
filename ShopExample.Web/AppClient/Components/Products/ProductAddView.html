@@ -22,18 +22,13 @@
     </ul>
 </nav>
 <!-- /.navbar -->
+
 <!--Main content-->
 <section class="content pt-6">
-    <!--<div id="loading-bar-container">
-        <loading-bar></loading-bar>
-    </div>-->
     <!-- Horizontal Form -->
     <div class="card card-info">
         <div class="card-header">
             <h3 class="card-title">
-                <span style="cursor: pointer; padding: 3px 5px">
-                    <!--<i class="fa-solid fa-chevron-left" style="color: #fff; margin-right: 29px"></i>-->
-                </span>
                 Add new product
             </h3>
         </div>
@@ -131,7 +126,7 @@
                         <input name="categoryID" type="hidden" ng-model="product.CategoryID" />
                     </div>
 
-                    <div class="col-sm-6">
+                    <!--<div class="col-sm-6">
                         <label class="col-sm-12 col-form-label px-0">Origin <span class="text-danger">*</span></label>
                         <input type="text"
                                name="origin"
@@ -155,15 +150,16 @@
                         <div ng-messages="frmAddProduct.warranty.$error" class="text-danger">
                             <div ng-message="required">Product's warranty is required.</div>
                         </div>
-                    </div>
+                    </div>-->
 
                     <div class="col-sm-12">
                         <label class="col-sm-12 col-form-label px-0">Description</label>
-                        <input type="text"
-                               name="description"
-                               ng-model="product.Description"
-                               class="form-control"
-                               placeholder="Description ...">
+                        <textarea type="text"
+                                  name="description"
+                                  ckeditor="ckeditorOptions"
+                                  ng-model="product.Description"
+                                  class="form-control"
+                                  placeholder="Description ..."></textarea>
                     </div>
 
                     <div class="col-sm-12">
@@ -250,14 +246,14 @@
                         <label class="col-sm-12 col-form-label px-0">Status <span class="text-danger">*</span></label>
                         <select ng-options="item as item.Name for item in status track by item.ID"
                                 ng-model="product_Status"
-                                ng-required="true"
+                                required
                                 name="status"
                                 class="form-control">
                             <option value="">--- Choose one status ---</option>
                         </select>
 
-                        <div ng-messages="frmAddProduct.status.$invalid" ng-if="submitted">
-                            <p ng-message="required" class="text-danger">Status is required.</p>
+                        <div ng-messages="frmAddProduct.status.error" class="text-danger" ng-if="submitted">
+                            <p ng-message="required">Status is required.</p>
                         </div>
                     </div>
 
