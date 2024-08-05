@@ -31,7 +31,7 @@ namespace ShopExample.Web.App_Start
             {
                 TokenEndpointPath = new PathString("/oauth/token"),
                 Provider = new AuthorizationServerProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(60),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(1),
                 AllowInsecureHttp = true,
 
             });

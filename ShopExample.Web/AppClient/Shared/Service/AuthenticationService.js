@@ -61,6 +61,8 @@
             }
 
             this.validateRequest = function () {
+                debugger;
+
                 var url = 'api/home/TestMethod';
 
                 var deferred = $q.defer();
