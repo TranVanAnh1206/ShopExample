@@ -1,0 +1,11 @@
+﻿
+
+
+
+
+sau khi  đã hoàn thiện xong được các Model class cho các bảng 
+
+vào Package Manager Console
+PM > enable-migrations (chọn PM > enable-migrations -Force nếu đã tồn tại để ghi đè)
+PM > add-migration InitialDB
+PM > update-database
